@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.PERSONINFOMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.PERSONINFO">
+    <id column="PERSON_ID" jdbcType="DECIMAL" property="personId" />
+    <result column="PERSON_NAME" jdbcType="VARCHAR" property="personName" />
+    <result column="RYDM" jdbcType="VARCHAR" property="rydm" />
+    <result column="DEPTID" jdbcType="DECIMAL" property="deptid" />
+    <result column="WORK_TYPE" jdbcType="DECIMAL" property="workType" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PERSON_ID, PERSON_NAME, RYDM, DEPTID, WORK_TYPE, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PERSONINFO
+    where PERSON_ID = #{personId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectByrydm" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PERSONINFO
+    where RYDM = #{personId} and DEPTID=#{shopid}
+  </select>
+  <select id="selectByshop" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PERSONINFO
+    where DEPTID = #{shopid,jdbcType=DECIMAL} and status!=1
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from PERSONINFO
+    where PERSON_ID = #{personId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.PERSONINFO">
+    insert into PERSONINFO (PERSON_ID, PERSON_NAME, RYDM, 
+      DEPTID, WORK_TYPE, STATUS
+      )
+    values (#{personId,jdbcType=DECIMAL}, #{personName,jdbcType=VARCHAR}, #{rydm,jdbcType=VARCHAR}, 
+      #{deptid,jdbcType=DECIMAL}, #{workType,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.PERSONINFO">
+    insert into PERSONINFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="personId != null">
+        PERSON_ID,
+      </if>
+      <if test="personName != null">
+        PERSON_NAME,
+      </if>
+      <if test="rydm != null">
+        RYDM,
+      </if>
+      <if test="deptid != null">
+        DEPTID,
+      </if>
+      <if test="workType != null">
+        WORK_TYPE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="personId != null">
+        #{personId,jdbcType=DECIMAL},
+      </if>
+      <if test="personName != null">
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="rydm != null">
+        #{rydm,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid != null">
+        #{deptid,jdbcType=DECIMAL},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.PERSONINFO">
+    update PERSONINFO
+    <set>
+      <if test="personName != null">
+        PERSON_NAME = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="rydm != null">
+        RYDM = #{rydm,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid != null">
+        DEPTID = #{deptid,jdbcType=DECIMAL},
+      </if>
+      <if test="workType != null">
+        WORK_TYPE = #{workType,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PERSON_ID = #{personId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.PERSONINFO">
+    update PERSONINFO
+    set PERSON_NAME = #{personName,jdbcType=VARCHAR},
+      RYDM = #{rydm,jdbcType=VARCHAR},
+      DEPTID = #{deptid,jdbcType=DECIMAL},
+      WORK_TYPE = #{workType,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL}
+    where PERSON_ID = #{personId,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>

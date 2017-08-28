@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.POSCONFIGMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.POSCONFIG">
+    <id column="JLBH" jdbcType="DECIMAL" property="jlbh" />
+    <result column="DEF_VAL" jdbcType="DECIMAL" property="defVal" />
+    <result column="CUR_VAL" jdbcType="DECIMAL" property="curVal" />
+    <result column="MAX_VAL" jdbcType="DECIMAL" property="maxVal" />
+    <result column="MIN_VAL" jdbcType="DECIMAL" property="minVal" />
+    <result column="YY" jdbcType="VARCHAR" property="yy" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="LASTMODIFIERID" jdbcType="DECIMAL" property="lastmodifierid" />
+    <result column="LASTMODIFIERNAME" jdbcType="VARCHAR" property="lastmodifiername" />
+    <result column="LASTMODIFYDATE" jdbcType="TIMESTAMP" property="lastmodifydate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    JLBH, DEF_VAL, CUR_VAL, MAX_VAL, MIN_VAL, YY, NAME, LASTMODIFIERID, LASTMODIFIERNAME, 
+    LASTMODIFYDATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from POSCONFIG
+    where JLBH = #{jlbh,jdbcType=DECIMAL}
+  </select>
+    <select id="getAllPosconfig" resultMap="BaseResultMap">
+	    select <include refid="Base_Column_List" />
+	     from POSCONFIG 
+	</select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from POSCONFIG
+    where JLBH = #{jlbh,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.POSCONFIG">
+    insert into POSCONFIG (JLBH, DEF_VAL, CUR_VAL, 
+      MAX_VAL, MIN_VAL, YY, 
+      NAME, LASTMODIFIERID, LASTMODIFIERNAME, 
+      LASTMODIFYDATE)
+    values (#{jlbh,jdbcType=DECIMAL}, #{defVal,jdbcType=DECIMAL}, #{curVal,jdbcType=DECIMAL}, 
+      #{maxVal,jdbcType=DECIMAL}, #{minVal,jdbcType=DECIMAL}, #{yy,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{lastmodifierid,jdbcType=DECIMAL}, #{lastmodifiername,jdbcType=VARCHAR}, 
+      #{lastmodifydate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.POSCONFIG">
+    insert into POSCONFIG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jlbh != null">
+        JLBH,
+      </if>
+      <if test="defVal != null">
+        DEF_VAL,
+      </if>
+      <if test="curVal != null">
+        CUR_VAL,
+      </if>
+      <if test="maxVal != null">
+        MAX_VAL,
+      </if>
+      <if test="minVal != null">
+        MIN_VAL,
+      </if>
+      <if test="yy != null">
+        YY,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="lastmodifierid != null">
+        LASTMODIFIERID,
+      </if>
+      <if test="lastmodifiername != null">
+        LASTMODIFIERNAME,
+      </if>
+      <if test="lastmodifydate != null">
+        LASTMODIFYDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jlbh != null">
+        #{jlbh,jdbcType=DECIMAL},
+      </if>
+      <if test="defVal != null">
+        #{defVal,jdbcType=DECIMAL},
+      </if>
+      <if test="curVal != null">
+        #{curVal,jdbcType=DECIMAL},
+      </if>
+      <if test="maxVal != null">
+        #{maxVal,jdbcType=DECIMAL},
+      </if>
+      <if test="minVal != null">
+        #{minVal,jdbcType=DECIMAL},
+      </if>
+      <if test="yy != null">
+        #{yy,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifierid != null">
+        #{lastmodifierid,jdbcType=DECIMAL},
+      </if>
+      <if test="lastmodifiername != null">
+        #{lastmodifiername,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifydate != null">
+        #{lastmodifydate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.POSCONFIG">
+    update POSCONFIG
+    <set>
+      <if test="defVal != null">
+        DEF_VAL = #{defVal,jdbcType=DECIMAL},
+      </if>
+      <if test="curVal != null">
+        CUR_VAL = #{curVal,jdbcType=DECIMAL},
+      </if>
+      <if test="maxVal != null">
+        MAX_VAL = #{maxVal,jdbcType=DECIMAL},
+      </if>
+      <if test="minVal != null">
+        MIN_VAL = #{minVal,jdbcType=DECIMAL},
+      </if>
+      <if test="yy != null">
+        YY = #{yy,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifierid != null">
+        LASTMODIFIERID = #{lastmodifierid,jdbcType=DECIMAL},
+      </if>
+      <if test="lastmodifiername != null">
+        LASTMODIFIERNAME = #{lastmodifiername,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifydate != null">
+        LASTMODIFYDATE = #{lastmodifydate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where JLBH = #{jlbh,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.POSCONFIG">
+    update POSCONFIG
+    set DEF_VAL = #{defVal,jdbcType=DECIMAL},
+      CUR_VAL = #{curVal,jdbcType=DECIMAL},
+      MAX_VAL = #{maxVal,jdbcType=DECIMAL},
+      MIN_VAL = #{minVal,jdbcType=DECIMAL},
+      YY = #{yy,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      LASTMODIFIERID = #{lastmodifierid,jdbcType=DECIMAL},
+      LASTMODIFIERNAME = #{lastmodifiername,jdbcType=VARCHAR},
+      LASTMODIFYDATE = #{lastmodifydate,jdbcType=TIMESTAMP}
+    where JLBH = #{jlbh,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>

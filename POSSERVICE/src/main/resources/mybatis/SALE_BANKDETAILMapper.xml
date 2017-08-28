@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.SALE_BANKDETAILMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.SALE_BANKDETAIL">
+    <id column="SKTNO" jdbcType="VARCHAR" property="sktno" />
+    <id column="JLBH" jdbcType="DECIMAL" property="jlbh" />
+    <id column="INX" jdbcType="DECIMAL" property="inx" />
+    <result column="JYLX" jdbcType="DECIMAL" property="jylx" />
+    <result column="CARDNO" jdbcType="VARCHAR" property="cardno" />
+    <result column="PCH" jdbcType="VARCHAR" property="pch" />
+    <result column="CKH" jdbcType="VARCHAR" property="ckh" />
+    <result column="LSH" jdbcType="VARCHAR" property="lsh" />
+    <result column="JE" jdbcType="DECIMAL" property="je" />
+    <result column="ZKJE" jdbcType="DECIMAL" property="zkje" />
+    <result column="SKFSID" jdbcType="DECIMAL" property="skfsid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SKTNO, JLBH, INX, JYLX, CARDNO, PCH, CKH, LSH, JE, ZKJE, SKFSID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_BANKDETAILKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_BANKDETAIL
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByskt" parameterType="xb.posservice.dao.vo.SALE_BANKDETAILKey" resultMap="BaseResultMap">
+   
+    select <include refid="Base_Column_List" /> from (  select 
+    <include refid="Base_Column_List" />
+    from SALE_BANKDETAIL
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL} order by inx desc) where  ROWNUM =1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_BANKDETAILKey">
+    delete from SALE_BANKDETAIL
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.SALE_BANKDETAIL">
+    insert into SALE_BANKDETAIL (SKTNO, JLBH, INX, 
+      JYLX, CARDNO, PCH, 
+      CKH, LSH, JE, ZKJE, 
+      SKFSID)
+    values (#{sktno,jdbcType=VARCHAR}, #{jlbh,jdbcType=DECIMAL}, #{inx,jdbcType=DECIMAL}, 
+      #{jylx,jdbcType=DECIMAL}, #{cardno,jdbcType=VARCHAR}, #{pch,jdbcType=VARCHAR}, 
+      #{ckh,jdbcType=VARCHAR}, #{lsh,jdbcType=VARCHAR}, #{je,jdbcType=DECIMAL}, #{zkje,jdbcType=DECIMAL}, 
+      #{skfsid,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.SALE_BANKDETAIL">
+    insert into SALE_BANKDETAIL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        SKTNO,
+      </if>
+      <if test="jlbh != null">
+        JLBH,
+      </if>
+      <if test="inx != null">
+        INX,
+      </if>
+      <if test="jylx != null">
+        JYLX,
+      </if>
+      <if test="cardno != null">
+        CARDNO,
+      </if>
+      <if test="pch != null">
+        PCH,
+      </if>
+      <if test="ckh != null">
+        CKH,
+      </if>
+      <if test="lsh != null">
+        LSH,
+      </if>
+      <if test="je != null">
+        JE,
+      </if>
+      <if test="zkje != null">
+        ZKJE,
+      </if>
+      <if test="skfsid != null">
+        SKFSID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        #{sktno,jdbcType=VARCHAR},
+      </if>
+      <if test="jlbh != null">
+        #{jlbh,jdbcType=DECIMAL},
+      </if>
+      <if test="inx != null">
+        #{inx,jdbcType=DECIMAL},
+      </if>
+      <if test="jylx != null">
+        #{jylx,jdbcType=DECIMAL},
+      </if>
+      <if test="cardno != null">
+        #{cardno,jdbcType=VARCHAR},
+      </if>
+      <if test="pch != null">
+        #{pch,jdbcType=VARCHAR},
+      </if>
+      <if test="ckh != null">
+        #{ckh,jdbcType=VARCHAR},
+      </if>
+      <if test="lsh != null">
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="je != null">
+        #{je,jdbcType=DECIMAL},
+      </if>
+      <if test="zkje != null">
+        #{zkje,jdbcType=DECIMAL},
+      </if>
+      <if test="skfsid != null">
+        #{skfsid,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.SALE_BANKDETAIL">
+    update SALE_BANKDETAIL
+    <set>
+      <if test="jylx != null">
+        JYLX = #{jylx,jdbcType=DECIMAL},
+      </if>
+      <if test="cardno != null">
+        CARDNO = #{cardno,jdbcType=VARCHAR},
+      </if>
+      <if test="pch != null">
+        PCH = #{pch,jdbcType=VARCHAR},
+      </if>
+      <if test="ckh != null">
+        CKH = #{ckh,jdbcType=VARCHAR},
+      </if>
+      <if test="lsh != null">
+        LSH = #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="je != null">
+        JE = #{je,jdbcType=DECIMAL},
+      </if>
+      <if test="zkje != null">
+        ZKJE = #{zkje,jdbcType=DECIMAL},
+      </if>
+      <if test="skfsid != null">
+        SKFSID = #{skfsid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_BANKDETAIL">
+    update SALE_BANKDETAIL
+    set JYLX = #{jylx,jdbcType=DECIMAL},
+      CARDNO = #{cardno,jdbcType=VARCHAR},
+      PCH = #{pch,jdbcType=VARCHAR},
+      CKH = #{ckh,jdbcType=VARCHAR},
+      LSH = #{lsh,jdbcType=VARCHAR},
+      JE = #{je,jdbcType=DECIMAL},
+      ZKJE = #{zkje,jdbcType=DECIMAL},
+      SKFSID = #{skfsid,jdbcType=DECIMAL}
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </update>
+ 
+  
+</mapper>

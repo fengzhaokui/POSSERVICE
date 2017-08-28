@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.GOODSMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.GOODS">
+    <id column="SP_ID" jdbcType="DECIMAL" property="spId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="NAME_QC" jdbcType="VARCHAR" property="nameQc" />
+    <result column="SPFL" jdbcType="VARCHAR" property="spfl" />
+    <result column="SB" jdbcType="DECIMAL" property="sb" />
+    <result column="GHDW" jdbcType="VARCHAR" property="ghdw" />
+    <result column="SCCJ" jdbcType="VARCHAR" property="sccj" />
+    <result column="SPCODE" jdbcType="VARCHAR" property="spcode" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barcode" />
+    <result column="HH" jdbcType="VARCHAR" property="hh" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="LSDJ" jdbcType="DECIMAL" property="lsdj" />
+    <result column="SPTYPE" jdbcType="DECIMAL" property="sptype" />
+    <result column="BZ" jdbcType="VARCHAR" property="bz" />
+    <result column="DJR" jdbcType="DECIMAL" property="djr" />
+    <result column="DJRMC" jdbcType="VARCHAR" property="djrmc" />
+    <result column="DJRQ" jdbcType="TIMESTAMP" property="djrq" />
+    <result column="GXR" jdbcType="DECIMAL" property="gxr" />
+    <result column="GXRMC" jdbcType="VARCHAR" property="gxrmc" />
+    <result column="GXSJ" jdbcType="TIMESTAMP" property="gxsj" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="POINT" jdbcType="FLOAT" property="point" />
+    <result column="PIC" jdbcType="VARCHAR" property="pic" />
+    <result column="ADDMONEY" jdbcType="DECIMAL" property="addmoney" />
+    <result column="SHOPID" jdbcType="DECIMAL" property="shopid" />
+    <result column="BJ_CASHBUY" jdbcType="DECIMAL" property="bjCashbuy" />
+    <result column="SQJE" jdbcType="DECIMAL" property="sqje" />
+    <result column="TM" jdbcType="DECIMAL" property="tm" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SP_ID, NAME, NAME_QC, SPFL, SB, GHDW, SCCJ, SPCODE, BARCODE, HH, UNIT, LSDJ, SPTYPE, 
+    BZ, DJR, DJRMC, DJRQ, GXR, GXRMC, GXSJ, STATUS, POINT, PIC, ADDMONEY, SHOPID, BJ_CASHBUY, 
+    SQJE, TM
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from GOODS
+    where SP_ID = #{spId,jdbcType=DECIMAL}
+  </select>
+  
+   <select id="selectByshopid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from GOODS
+    where SHOPID = #{shopid,jdbcType=DECIMAL}  and STATUS=0  
+  </select>
+</mapper>

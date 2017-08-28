@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.MEMQRCODEMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.MEMQRCODE">
+    <id column="HYID" jdbcType="DECIMAL" property="hyid" />
+    <id column="MAKETIME" jdbcType="TIMESTAMP" property="maketime" />
+    <result column="QRCODE" jdbcType="VARCHAR" property="qrcode" />
+    <result column="ERRORTIMES" jdbcType="DECIMAL" property="errortimes" />
+    <result column="LASTTIME" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    HYID, MAKETIME, QRCODE, ERRORTIMES, LASTTIME
+  </sql>
+   <select id="selectByQRCODE" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from MEMQRCODE
+    where QRCODE = #{qrcode,jdbcType=VARCHAR} order by MAKETIME
+  </select>
+  <select id="selectByPrimaryKey" parameterType="xb.posservice.dao.vo.MEMQRCODEKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from MEMQRCODE
+    where HYID = #{hyid,jdbcType=DECIMAL}
+      and MAKETIME = #{maketime,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.MEMQRCODEKey">
+    delete from MEMQRCODE
+    where HYID = #{hyid,jdbcType=DECIMAL}
+      and MAKETIME = #{maketime,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.MEMQRCODE">
+    insert into MEMQRCODE (HYID, MAKETIME, QRCODE, 
+      ERRORTIMES, LASTTIME)
+    values (#{hyid,jdbcType=DECIMAL}, #{maketime,jdbcType=TIMESTAMP}, #{qrcode,jdbcType=VARCHAR}, 
+      #{errortimes,jdbcType=DECIMAL}, #{lasttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.MEMQRCODE">
+    insert into MEMQRCODE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hyid != null">
+        HYID,
+      </if>
+      <if test="maketime != null">
+        MAKETIME,
+      </if>
+      <if test="qrcode != null">
+        QRCODE,
+      </if>
+      <if test="errortimes != null">
+        ERRORTIMES,
+      </if>
+      <if test="lasttime != null">
+        LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hyid != null">
+        #{hyid,jdbcType=DECIMAL},
+      </if>
+      <if test="maketime != null">
+        #{maketime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qrcode != null">
+        #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="errortimes != null">
+        #{errortimes,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.MEMQRCODE">
+    update MEMQRCODE
+    <set>
+      <if test="qrcode != null">
+        QRCODE = #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="errortimes != null">
+        ERRORTIMES = #{errortimes,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where HYID = #{hyid,jdbcType=DECIMAL}
+      and MAKETIME = #{maketime,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.MEMQRCODE">
+    update MEMQRCODE
+    set QRCODE = #{qrcode,jdbcType=VARCHAR},
+      ERRORTIMES = #{errortimes,jdbcType=DECIMAL},
+      LASTTIME = #{lasttime,jdbcType=TIMESTAMP}
+    where HYID = #{hyid,jdbcType=DECIMAL}
+      and MAKETIME = #{maketime,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

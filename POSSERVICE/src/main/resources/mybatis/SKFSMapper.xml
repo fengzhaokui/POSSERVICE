@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.SKFSMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.SKFS">
+    <id column="CODE" jdbcType="DECIMAL" property="code" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="KM_CODE" jdbcType="VARCHAR" property="kmCode" />
+    <result column="MARK" jdbcType="DECIMAL" property="mark" />
+    <result column="TYPE" jdbcType="DECIMAL" property="type" />
+    <result column="SXFBL" jdbcType="FLOAT" property="sxfbl" />
+    <result column="YHQID" jdbcType="DECIMAL" property="yhqid" />
+    <result column="YHQQYBJ" jdbcType="DECIMAL" property="yhqqybj" />
+    <result column="ZLCLFS" jdbcType="DECIMAL" property="zlclfs" />
+    <result column="XSSX" jdbcType="DECIMAL" property="xssx" />
+    <result column="BJ_JF" jdbcType="DECIMAL" property="bjJf" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="BJ_FQ" jdbcType="DECIMAL" property="bjFq" />
+    <result column="BJ_MJ" jdbcType="DECIMAL" property="bjMj" />
+    <result column="BJ_USED" jdbcType="DECIMAL" property="bjUsed" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CODE, NAME, KM_CODE, MARK, TYPE, SXFBL, YHQID, YHQQYBJ, ZLCLFS, XSSX, BJ_JF, STATUS, 
+    BJ_FQ, BJ_MJ, BJ_USED
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SKFS
+    where CODE = #{code,jdbcType=DECIMAL} and STATUS!=1
+  </select>
+  
+   <select id="selectByskt" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+   a.CODE, a.NAME, a.KM_CODE, a.MARK, a.TYPE, a.SXFBL, a.YHQID, a.YHQQYBJ, a.ZLCLFS, a.XSSX, a.BJ_JF, a.STATUS, 
+    a.BJ_FQ, a.BJ_MJ, a.BJ_USED
+    from SKFS a,SKT_SKFS b
+    where b.SKTNO = #{sktno,jdbcType=VARCHAR} and A.STATUS!=1 and b.SKFSID=a.CODE
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SKFS
+    where CODE = #{code,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.SKFS">
+    insert into SKFS (CODE, NAME, KM_CODE, 
+      MARK, TYPE, SXFBL, YHQID, 
+      YHQQYBJ, ZLCLFS, XSSX, 
+      BJ_JF, STATUS, BJ_FQ, 
+      BJ_MJ, BJ_USED)
+    values (#{code,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{kmCode,jdbcType=VARCHAR}, 
+      #{mark,jdbcType=DECIMAL}, #{type,jdbcType=DECIMAL}, #{sxfbl,jdbcType=FLOAT}, #{yhqid,jdbcType=DECIMAL}, 
+      #{yhqqybj,jdbcType=DECIMAL}, #{zlclfs,jdbcType=DECIMAL}, #{xssx,jdbcType=DECIMAL}, 
+      #{bjJf,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL}, #{bjFq,jdbcType=DECIMAL}, 
+      #{bjMj,jdbcType=DECIMAL}, #{bjUsed,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.SKFS">
+    insert into SKFS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="kmCode != null">
+        KM_CODE,
+      </if>
+      <if test="mark != null">
+        MARK,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="sxfbl != null">
+        SXFBL,
+      </if>
+      <if test="yhqid != null">
+        YHQID,
+      </if>
+      <if test="yhqqybj != null">
+        YHQQYBJ,
+      </if>
+      <if test="zlclfs != null">
+        ZLCLFS,
+      </if>
+      <if test="xssx != null">
+        XSSX,
+      </if>
+      <if test="bjJf != null">
+        BJ_JF,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="bjFq != null">
+        BJ_FQ,
+      </if>
+      <if test="bjMj != null">
+        BJ_MJ,
+      </if>
+      <if test="bjUsed != null">
+        BJ_USED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="kmCode != null">
+        #{kmCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null">
+        #{mark,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="sxfbl != null">
+        #{sxfbl,jdbcType=FLOAT},
+      </if>
+      <if test="yhqid != null">
+        #{yhqid,jdbcType=DECIMAL},
+      </if>
+      <if test="yhqqybj != null">
+        #{yhqqybj,jdbcType=DECIMAL},
+      </if>
+      <if test="zlclfs != null">
+        #{zlclfs,jdbcType=DECIMAL},
+      </if>
+      <if test="xssx != null">
+        #{xssx,jdbcType=DECIMAL},
+      </if>
+      <if test="bjJf != null">
+        #{bjJf,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="bjFq != null">
+        #{bjFq,jdbcType=DECIMAL},
+      </if>
+      <if test="bjMj != null">
+        #{bjMj,jdbcType=DECIMAL},
+      </if>
+      <if test="bjUsed != null">
+        #{bjUsed,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.SKFS">
+    update SKFS
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="kmCode != null">
+        KM_CODE = #{kmCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null">
+        MARK = #{mark,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="sxfbl != null">
+        SXFBL = #{sxfbl,jdbcType=FLOAT},
+      </if>
+      <if test="yhqid != null">
+        YHQID = #{yhqid,jdbcType=DECIMAL},
+      </if>
+      <if test="yhqqybj != null">
+        YHQQYBJ = #{yhqqybj,jdbcType=DECIMAL},
+      </if>
+      <if test="zlclfs != null">
+        ZLCLFS = #{zlclfs,jdbcType=DECIMAL},
+      </if>
+      <if test="xssx != null">
+        XSSX = #{xssx,jdbcType=DECIMAL},
+      </if>
+      <if test="bjJf != null">
+        BJ_JF = #{bjJf,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="bjFq != null">
+        BJ_FQ = #{bjFq,jdbcType=DECIMAL},
+      </if>
+      <if test="bjMj != null">
+        BJ_MJ = #{bjMj,jdbcType=DECIMAL},
+      </if>
+      <if test="bjUsed != null">
+        BJ_USED = #{bjUsed,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CODE = #{code,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.SKFS">
+    update SKFS
+    set NAME = #{name,jdbcType=VARCHAR},
+      KM_CODE = #{kmCode,jdbcType=VARCHAR},
+      MARK = #{mark,jdbcType=DECIMAL},
+      TYPE = #{type,jdbcType=DECIMAL},
+      SXFBL = #{sxfbl,jdbcType=FLOAT},
+      YHQID = #{yhqid,jdbcType=DECIMAL},
+      YHQQYBJ = #{yhqqybj,jdbcType=DECIMAL},
+      ZLCLFS = #{zlclfs,jdbcType=DECIMAL},
+      XSSX = #{xssx,jdbcType=DECIMAL},
+      BJ_JF = #{bjJf,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      BJ_FQ = #{bjFq,jdbcType=DECIMAL},
+      BJ_MJ = #{bjMj,jdbcType=DECIMAL},
+      BJ_USED = #{bjUsed,jdbcType=DECIMAL}
+    where CODE = #{code,jdbcType=DECIMAL}
+  </update>
+ 
+</mapper>

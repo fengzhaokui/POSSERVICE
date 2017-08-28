@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.SALE_PAYMENTSMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.SALE_PAYMENTS">
+    <id column="SKTNO" jdbcType="VARCHAR" property="sktno" />
+    <id column="JLBH" jdbcType="DECIMAL" property="jlbh" />
+    <id column="SKFS" jdbcType="DECIMAL" property="skfs" />
+    <result column="SKJE" jdbcType="DECIMAL" property="skje" />
+    <result column="YYJE" jdbcType="DECIMAL" property="yyje" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SKTNO, JLBH, SKFS, SKJE, YYJE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_PAYMENTSKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_PAYMENTS
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and SKFS = #{skfs,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_PAYMENTSKey">
+    delete from SALE_PAYMENTS
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and SKFS = #{skfs,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.SALE_PAYMENTS">
+    insert into SALE_PAYMENTS (SKTNO, JLBH, SKFS, 
+      SKJE, YYJE)
+    values (#{sktno,jdbcType=VARCHAR}, #{jlbh,jdbcType=DECIMAL}, #{skfs,jdbcType=DECIMAL}, 
+      #{skje,jdbcType=DECIMAL}, #{yyje,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.SALE_PAYMENTS">
+    insert into SALE_PAYMENTS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        SKTNO,
+      </if>
+      <if test="jlbh != null">
+        JLBH,
+      </if>
+      <if test="skfs != null">
+        SKFS,
+      </if>
+      <if test="skje != null">
+        SKJE,
+      </if>
+      <if test="yyje != null">
+        YYJE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        #{sktno,jdbcType=VARCHAR},
+      </if>
+      <if test="jlbh != null">
+        #{jlbh,jdbcType=DECIMAL},
+      </if>
+      <if test="skfs != null">
+        #{skfs,jdbcType=DECIMAL},
+      </if>
+      <if test="skje != null">
+        #{skje,jdbcType=DECIMAL},
+      </if>
+      <if test="yyje != null">
+        #{yyje,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.SALE_PAYMENTS">
+    update SALE_PAYMENTS
+    <set>
+      <if test="skje != null">
+        SKJE = #{skje,jdbcType=DECIMAL},
+      </if>
+      <if test="yyje != null">
+        YYJE = #{yyje,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and SKFS = #{skfs,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_PAYMENTS">
+    update SALE_PAYMENTS
+    set SKJE = #{skje,jdbcType=DECIMAL},
+      YYJE = #{yyje,jdbcType=DECIMAL}
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and SKFS = #{skfs,jdbcType=DECIMAL}
+  </update>
+  
+ 
+</mapper>

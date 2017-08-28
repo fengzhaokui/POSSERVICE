@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.SALE_DETAILMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.SALE_DETAIL">
+    <id column="SKTNO" jdbcType="VARCHAR" property="sktno" />
+    <id column="JLBH" jdbcType="DECIMAL" property="jlbh" />
+    <id column="TCKT_INX" jdbcType="DECIMAL" property="tcktInx" />
+    <id column="INX" jdbcType="DECIMAL" property="inx" />
+    <result column="DEPTID" jdbcType="DECIMAL" property="deptid" />
+    <result column="SP_ID" jdbcType="DECIMAL" property="spId" />
+    <result column="BARCODE" jdbcType="VARCHAR" property="barcode" />
+    <result column="LSDJ" jdbcType="DECIMAL" property="lsdj" />
+    <result column="XSSL" jdbcType="DECIMAL" property="xssl" />
+    <result column="XSJE" jdbcType="DECIMAL" property="xsje" />
+    <result column="ZKJE" jdbcType="DECIMAL" property="zkje" />
+    <result column="YHJE" jdbcType="DECIMAL" property="yhje" />
+    <result column="POINT" jdbcType="DECIMAL" property="point" />
+    <result column="GRANTPOINT" jdbcType="DECIMAL" property="grantpoint" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SKTNO, JLBH, TCKT_INX, INX, DEPTID, SP_ID, BARCODE, LSDJ, XSSL, XSJE, ZKJE, YHJE, 
+    POINT, GRANTPOINT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_DETAILKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_DETAIL
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and TCKT_INX = #{tcktInx,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_DETAILKey">
+    delete from SALE_DETAIL
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and TCKT_INX = #{tcktInx,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.SALE_DETAIL">
+    insert into SALE_DETAIL (SKTNO, JLBH, TCKT_INX, 
+      INX, DEPTID, SP_ID, 
+      BARCODE, LSDJ, XSSL, 
+      XSJE, ZKJE, YHJE, POINT, 
+      GRANTPOINT)
+    values (#{sktno,jdbcType=VARCHAR}, #{jlbh,jdbcType=DECIMAL}, #{tcktInx,jdbcType=DECIMAL}, 
+      #{inx,jdbcType=DECIMAL}, #{deptid,jdbcType=DECIMAL}, #{spId,jdbcType=DECIMAL}, 
+      #{barcode,jdbcType=VARCHAR}, #{lsdj,jdbcType=DECIMAL}, #{xssl,jdbcType=DECIMAL}, 
+      #{xsje,jdbcType=DECIMAL}, #{zkje,jdbcType=DECIMAL}, #{yhje,jdbcType=DECIMAL}, #{point,jdbcType=DECIMAL}, 
+      #{grantpoint,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.SALE_DETAIL">
+    insert into SALE_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        SKTNO,
+      </if>
+      <if test="jlbh != null">
+        JLBH,
+      </if>
+      <if test="tcktInx != null">
+        TCKT_INX,
+      </if>
+      <if test="inx != null">
+        INX,
+      </if>
+      <if test="deptid != null">
+        DEPTID,
+      </if>
+      <if test="spId != null">
+        SP_ID,
+      </if>
+      <if test="barcode != null">
+        BARCODE,
+      </if>
+      <if test="lsdj != null">
+        LSDJ,
+      </if>
+      <if test="xssl != null">
+        XSSL,
+      </if>
+      <if test="xsje != null">
+        XSJE,
+      </if>
+      <if test="zkje != null">
+        ZKJE,
+      </if>
+      <if test="yhje != null">
+        YHJE,
+      </if>
+      <if test="point != null">
+        POINT,
+      </if>
+      <if test="grantpoint != null">
+        GRANTPOINT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        #{sktno,jdbcType=VARCHAR},
+      </if>
+      <if test="jlbh != null">
+        #{jlbh,jdbcType=DECIMAL},
+      </if>
+      <if test="tcktInx != null">
+        #{tcktInx,jdbcType=DECIMAL},
+      </if>
+      <if test="inx != null">
+        #{inx,jdbcType=DECIMAL},
+      </if>
+      <if test="deptid != null">
+        #{deptid,jdbcType=DECIMAL},
+      </if>
+      <if test="spId != null">
+        #{spId,jdbcType=DECIMAL},
+      </if>
+      <if test="barcode != null">
+        #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="lsdj != null">
+        #{lsdj,jdbcType=DECIMAL},
+      </if>
+      <if test="xssl != null">
+        #{xssl,jdbcType=DECIMAL},
+      </if>
+      <if test="xsje != null">
+        #{xsje,jdbcType=DECIMAL},
+      </if>
+      <if test="zkje != null">
+        #{zkje,jdbcType=DECIMAL},
+      </if>
+      <if test="yhje != null">
+        #{yhje,jdbcType=DECIMAL},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=DECIMAL},
+      </if>
+      <if test="grantpoint != null">
+        #{grantpoint,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.SALE_DETAIL">
+    update SALE_DETAIL
+    <set>
+      <if test="deptid != null">
+        DEPTID = #{deptid,jdbcType=DECIMAL},
+      </if>
+      <if test="spId != null">
+        SP_ID = #{spId,jdbcType=DECIMAL},
+      </if>
+      <if test="barcode != null">
+        BARCODE = #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="lsdj != null">
+        LSDJ = #{lsdj,jdbcType=DECIMAL},
+      </if>
+      <if test="xssl != null">
+        XSSL = #{xssl,jdbcType=DECIMAL},
+      </if>
+      <if test="xsje != null">
+        XSJE = #{xsje,jdbcType=DECIMAL},
+      </if>
+      <if test="zkje != null">
+        ZKJE = #{zkje,jdbcType=DECIMAL},
+      </if>
+      <if test="yhje != null">
+        YHJE = #{yhje,jdbcType=DECIMAL},
+      </if>
+      <if test="point != null">
+        POINT = #{point,jdbcType=DECIMAL},
+      </if>
+      <if test="grantpoint != null">
+        GRANTPOINT = #{grantpoint,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and TCKT_INX = #{tcktInx,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_DETAIL">
+    update SALE_DETAIL
+    set DEPTID = #{deptid,jdbcType=DECIMAL},
+      SP_ID = #{spId,jdbcType=DECIMAL},
+      BARCODE = #{barcode,jdbcType=VARCHAR},
+      LSDJ = #{lsdj,jdbcType=DECIMAL},
+      XSSL = #{xssl,jdbcType=DECIMAL},
+      XSJE = #{xsje,jdbcType=DECIMAL},
+      ZKJE = #{zkje,jdbcType=DECIMAL},
+      YHJE = #{yhje,jdbcType=DECIMAL},
+      POINT = #{point,jdbcType=DECIMAL},
+      GRANTPOINT = #{grantpoint,jdbcType=DECIMAL}
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and TCKT_INX = #{tcktInx,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </update>
+ 
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.MALLDEFMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.MALLDEF">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="LASTMODIFIERID" jdbcType="DECIMAL" property="lastmodifierid" />
+    <result column="LASTMODIFIERNAME" jdbcType="VARCHAR" property="lastmodifiername" />
+    <result column="LASTMODIFYDATE" jdbcType="TIMESTAMP" property="lastmodifydate" />
+    <result column="XTCODE" jdbcType="VARCHAR" property="xtcode" />
+    <result column="TM" jdbcType="DECIMAL" property="tm" />
+    <result column="OLD_MDID" jdbcType="VARCHAR" property="oldMdid" />
+    <result column="MDID_PARK" jdbcType="VARCHAR" property="mdidPark" />
+    <result column="MDADDRESS" jdbcType="VARCHAR" property="mdaddress" />
+    <result column="MDPHONE" jdbcType="VARCHAR" property="mdphone" />
+    <result column="BJ_AUTOREG" jdbcType="DECIMAL" property="bjAutoreg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CODE, NAME, LASTMODIFIERID, LASTMODIFIERNAME, LASTMODIFYDATE, XTCODE, TM, OLD_MDID, 
+    MDID_PARK, MDADDRESS, MDPHONE, BJ_AUTOREG
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from MALLDEF
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  
+</mapper>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.REFUNDREASONMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.REFUNDREASON">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SHOWINX" jdbcType="DECIMAL" property="showinx" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="MODIFIERID" jdbcType="DECIMAL" property="modifierid" />
+    <result column="MODIFIERNAME" jdbcType="VARCHAR" property="modifiername" />
+    <result column="MODIFYDATE" jdbcType="TIMESTAMP" property="modifydate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, SHOWINX, STATUS, MODIFIERID, MODIFIERNAME, MODIFYDATE
+  </sql>
+   <select id="selectall"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from REFUNDREASON
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from REFUNDREASON
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from REFUNDREASON
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.REFUNDREASON">
+    insert into REFUNDREASON (ID, NAME, SHOWINX, 
+      STATUS, MODIFIERID, MODIFIERNAME, 
+      MODIFYDATE)
+    values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{showinx,jdbcType=DECIMAL}, 
+      #{status,jdbcType=DECIMAL}, #{modifierid,jdbcType=DECIMAL}, #{modifiername,jdbcType=VARCHAR}, 
+      #{modifydate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.REFUNDREASON">
+    insert into REFUNDREASON
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="showinx != null">
+        SHOWINX,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="modifierid != null">
+        MODIFIERID,
+      </if>
+      <if test="modifiername != null">
+        MODIFIERNAME,
+      </if>
+      <if test="modifydate != null">
+        MODIFYDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="showinx != null">
+        #{showinx,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="modifierid != null">
+        #{modifierid,jdbcType=DECIMAL},
+      </if>
+      <if test="modifiername != null">
+        #{modifiername,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydate != null">
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.REFUNDREASON">
+    update REFUNDREASON
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="showinx != null">
+        SHOWINX = #{showinx,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="modifierid != null">
+        MODIFIERID = #{modifierid,jdbcType=DECIMAL},
+      </if>
+      <if test="modifiername != null">
+        MODIFIERNAME = #{modifiername,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydate != null">
+        MODIFYDATE = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.REFUNDREASON">
+    update REFUNDREASON
+    set NAME = #{name,jdbcType=VARCHAR},
+      SHOWINX = #{showinx,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      MODIFIERID = #{modifierid,jdbcType=DECIMAL},
+      MODIFIERNAME = #{modifiername,jdbcType=VARCHAR},
+      MODIFYDATE = #{modifydate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>

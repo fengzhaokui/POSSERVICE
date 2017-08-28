@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.MEM_BASEINFOMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.MEM_BASEINFO">
+    <id column="HYID" jdbcType="DECIMAL" property="hyid" />
+    <result column="HYKTYPE" jdbcType="DECIMAL" property="hyktype" />
+    <result column="HYKNO" jdbcType="VARCHAR" property="hykno" />
+    <result column="CDNR" jdbcType="VARCHAR" property="cdnr" />
+    <result column="HYNAME" jdbcType="VARCHAR" property="hyname" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="VALIDDATE" jdbcType="TIMESTAMP" property="validdate" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="EXTERHYID" jdbcType="VARCHAR" property="exterhyid" />
+    <result column="BIRTHDATE" jdbcType="TIMESTAMP" property="birthdate" />
+    <result column="SEX" jdbcType="DECIMAL" property="sex" />
+    <result column="IDCARD" jdbcType="VARCHAR" property="idcard" />
+    <result column="PASSPORT" jdbcType="VARCHAR" property="passport" />
+    <result column="TEACHER_CARD" jdbcType="VARCHAR" property="teacherCard" />
+    <result column="SOLDIER_CARD" jdbcType="VARCHAR" property="soldierCard" />
+    <result column="OPENID" jdbcType="VARCHAR" property="openid" />
+    <result column="THIRDHYID" jdbcType="VARCHAR" property="thirdhyid" />
+    <result column="PHONE_WXTJ" jdbcType="VARCHAR" property="phoneWxtj" />
+    <result column="PHONE_CFTJ" jdbcType="VARCHAR" property="phoneCftj" />
+    <result column="BJ_KTXJ" jdbcType="DECIMAL" property="bjKtxj" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    HYID, HYKTYPE, HYKNO, CDNR, HYNAME, PHONE, VALIDDATE, PASSWORD, STATUS, EXTERHYID, 
+    BIRTHDATE, SEX, IDCARD, PASSPORT, TEACHER_CARD, SOLDIER_CARD, OPENID, THIRDHYID, 
+    PHONE_WXTJ, PHONE_CFTJ, BJ_KTXJ, CREATETIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from MEM_BASEINFO
+    where HYID = #{hyid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from MEM_BASEINFO
+    where HYID = #{hyid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.MEM_BASEINFO">
+    insert into MEM_BASEINFO (HYID, HYKTYPE, HYKNO, 
+      CDNR, HYNAME, PHONE, 
+      VALIDDATE, PASSWORD, STATUS, 
+      EXTERHYID, BIRTHDATE, SEX, 
+      IDCARD, PASSPORT, TEACHER_CARD, 
+      SOLDIER_CARD, OPENID, THIRDHYID, 
+      PHONE_WXTJ, PHONE_CFTJ, BJ_KTXJ, 
+      CREATETIME)
+    values (#{hyid,jdbcType=DECIMAL}, #{hyktype,jdbcType=DECIMAL}, #{hykno,jdbcType=VARCHAR}, 
+      #{cdnr,jdbcType=VARCHAR}, #{hyname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{validdate,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, 
+      #{exterhyid,jdbcType=VARCHAR}, #{birthdate,jdbcType=TIMESTAMP}, #{sex,jdbcType=DECIMAL}, 
+      #{idcard,jdbcType=VARCHAR}, #{passport,jdbcType=VARCHAR}, #{teacherCard,jdbcType=VARCHAR}, 
+      #{soldierCard,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{thirdhyid,jdbcType=VARCHAR}, 
+      #{phoneWxtj,jdbcType=VARCHAR}, #{phoneCftj,jdbcType=VARCHAR}, #{bjKtxj,jdbcType=DECIMAL}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.MEM_BASEINFO">
+    insert into MEM_BASEINFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hyid != null">
+        HYID,
+      </if>
+      <if test="hyktype != null">
+        HYKTYPE,
+      </if>
+      <if test="hykno != null">
+        HYKNO,
+      </if>
+      <if test="cdnr != null">
+        CDNR,
+      </if>
+      <if test="hyname != null">
+        HYNAME,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="validdate != null">
+        VALIDDATE,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="exterhyid != null">
+        EXTERHYID,
+      </if>
+      <if test="birthdate != null">
+        BIRTHDATE,
+      </if>
+      <if test="sex != null">
+        SEX,
+      </if>
+      <if test="idcard != null">
+        IDCARD,
+      </if>
+      <if test="passport != null">
+        PASSPORT,
+      </if>
+      <if test="teacherCard != null">
+        TEACHER_CARD,
+      </if>
+      <if test="soldierCard != null">
+        SOLDIER_CARD,
+      </if>
+      <if test="openid != null">
+        OPENID,
+      </if>
+      <if test="thirdhyid != null">
+        THIRDHYID,
+      </if>
+      <if test="phoneWxtj != null">
+        PHONE_WXTJ,
+      </if>
+      <if test="phoneCftj != null">
+        PHONE_CFTJ,
+      </if>
+      <if test="bjKtxj != null">
+        BJ_KTXJ,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hyid != null">
+        #{hyid,jdbcType=DECIMAL},
+      </if>
+      <if test="hyktype != null">
+        #{hyktype,jdbcType=DECIMAL},
+      </if>
+      <if test="hykno != null">
+        #{hykno,jdbcType=VARCHAR},
+      </if>
+      <if test="cdnr != null">
+        #{cdnr,jdbcType=VARCHAR},
+      </if>
+      <if test="hyname != null">
+        #{hyname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="validdate != null">
+        #{validdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="exterhyid != null">
+        #{exterhyid,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdate != null">
+        #{birthdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="passport != null">
+        #{passport,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherCard != null">
+        #{teacherCard,jdbcType=VARCHAR},
+      </if>
+      <if test="soldierCard != null">
+        #{soldierCard,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdhyid != null">
+        #{thirdhyid,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneWxtj != null">
+        #{phoneWxtj,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneCftj != null">
+        #{phoneCftj,jdbcType=VARCHAR},
+      </if>
+      <if test="bjKtxj != null">
+        #{bjKtxj,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.MEM_BASEINFO">
+    update MEM_BASEINFO
+    <set>
+      <if test="hyktype != null">
+        HYKTYPE = #{hyktype,jdbcType=DECIMAL},
+      </if>
+      <if test="hykno != null">
+        HYKNO = #{hykno,jdbcType=VARCHAR},
+      </if>
+      <if test="cdnr != null">
+        CDNR = #{cdnr,jdbcType=VARCHAR},
+      </if>
+      <if test="hyname != null">
+        HYNAME = #{hyname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="validdate != null">
+        VALIDDATE = #{validdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="exterhyid != null">
+        EXTERHYID = #{exterhyid,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdate != null">
+        BIRTHDATE = #{birthdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sex != null">
+        SEX = #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="idcard != null">
+        IDCARD = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="passport != null">
+        PASSPORT = #{passport,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherCard != null">
+        TEACHER_CARD = #{teacherCard,jdbcType=VARCHAR},
+      </if>
+      <if test="soldierCard != null">
+        SOLDIER_CARD = #{soldierCard,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        OPENID = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdhyid != null">
+        THIRDHYID = #{thirdhyid,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneWxtj != null">
+        PHONE_WXTJ = #{phoneWxtj,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneCftj != null">
+        PHONE_CFTJ = #{phoneCftj,jdbcType=VARCHAR},
+      </if>
+      <if test="bjKtxj != null">
+        BJ_KTXJ = #{bjKtxj,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where HYID = #{hyid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.MEM_BASEINFO">
+    update MEM_BASEINFO
+    set HYKTYPE = #{hyktype,jdbcType=DECIMAL},
+      HYKNO = #{hykno,jdbcType=VARCHAR},
+      CDNR = #{cdnr,jdbcType=VARCHAR},
+      HYNAME = #{hyname,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      VALIDDATE = #{validdate,jdbcType=TIMESTAMP},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      EXTERHYID = #{exterhyid,jdbcType=VARCHAR},
+      BIRTHDATE = #{birthdate,jdbcType=TIMESTAMP},
+      SEX = #{sex,jdbcType=DECIMAL},
+      IDCARD = #{idcard,jdbcType=VARCHAR},
+      PASSPORT = #{passport,jdbcType=VARCHAR},
+      TEACHER_CARD = #{teacherCard,jdbcType=VARCHAR},
+      SOLDIER_CARD = #{soldierCard,jdbcType=VARCHAR},
+      OPENID = #{openid,jdbcType=VARCHAR},
+      THIRDHYID = #{thirdhyid,jdbcType=VARCHAR},
+      PHONE_WXTJ = #{phoneWxtj,jdbcType=VARCHAR},
+      PHONE_CFTJ = #{phoneCftj,jdbcType=VARCHAR},
+      BJ_KTXJ = #{bjKtxj,jdbcType=DECIMAL},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP}
+    where HYID = #{hyid,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">  
+<generatorConfiguration> 
+     <classPathEntry  location="D:\JAVA\workspace\msxfInterface\src\main\webapp\WEB-INF\lib\ojdbc6.jar"/> 
+<context id="SqlTables" targetRuntime="MyBatis3">  
+        <!-- 注释 -->  
+        <commentGenerator>  
+            <property name="suppressAllComments" value="true" /><!-- 是否取消注释 -->  
+            <property name="suppressDate" value="true" /><!-- 是否生成注释代时间戳 -->  
+        </commentGenerator>  
+        <!-- jdbc连接 -->  
+        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"    
+            connectionURL="jdbc:oracle:thin:@//192.168.28.239:1521/JH" userId="XBPOS"    
+            password="XBPOSXBPOS" />    
+            
+        <!-- 类型转换 -->    
+        <javaTypeResolver>    
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->    
+            <property name="forceBigDecimals" value="false"/>    
+        </javaTypeResolver>    
+            
+        <!-- 生成实体类地址  targetProject是生成文件的存放位置，targetPackage是生成文件的所在packet
+		 <property name="rootClass" value="com.symboltech.msxfInterface.dao"/>-->      
+        <javaModelGenerator targetPackage="com.symboltech.msxfInterface.dao.vo"    
+            targetProject="D:\entity" >  
+            <property name="enableSubPackages" value="false"/>  
+             
+            <property name="trimStrings" value="true"/>             
+        </javaModelGenerator>  
+          
+        <!-- 生成mapxml文件 -->    
+        <sqlMapGenerator targetPackage="com.symboltech.msxfInterface.dao"  
+            targetProject="D:\entity" >  
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->    
+            <property name="enableSubPackages" value="false"/>  
+        </sqlMapGenerator>    
+            
+        <!-- 生成mapxml对应client，也就是接口dao -->        
+        <javaClientGenerator targetPackage="com.symboltech.msxfInterface.dao"    
+            targetProject="D:\entity" type="XMLMAPPER" >    
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->    
+            <property name="enableSubPackages" value="false"/>  
+        </javaClientGenerator>    
+          
+        <!-- 配置表 -->  
+        <!--tableName对应表名，domainObjectName是实体类名 xxxxxByExample这几个是是否生成选择性增删改查mapper-->  
+        <table tableName="TOKEN" domainObjectName="TOKEN"  
+        enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"   
+        enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+          
+    </context> 
+    </generatorConfiguration>  

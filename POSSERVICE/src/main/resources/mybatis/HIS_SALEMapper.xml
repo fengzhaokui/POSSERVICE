@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.HIS_SALEMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.HIS_SALE">
+    <id column="SKTNO" jdbcType="VARCHAR" property="sktno" />
+    <id column="JLBH" jdbcType="DECIMAL" property="jlbh" />
+    <result column="JYSJ" jdbcType="TIMESTAMP" property="jysj" />
+    <result column="JZRQ" jdbcType="TIMESTAMP" property="jzrq" />
+    <result column="SKY" jdbcType="DECIMAL" property="sky" />
+    <result column="THFHR" jdbcType="DECIMAL" property="thfhr" />
+    <result column="VIPTYPE" jdbcType="DECIMAL" property="viptype" />
+    <result column="GLKKH" jdbcType="VARCHAR" property="glkkh" />
+    <result column="ZLJE" jdbcType="DECIMAL" property="zlje" />
+    <result column="XSJE" jdbcType="DECIMAL" property="xsje" />
+    <result column="VIPID" jdbcType="DECIMAL" property="vipid" />
+    <result column="XFJLID" jdbcType="DECIMAL" property="xfjlid" />
+    <result column="SKTNO_OLD" jdbcType="VARCHAR" property="sktnoOld" />
+    <result column="JLBH_OLD" jdbcType="DECIMAL" property="jlbhOld" />
+    <result column="JF" jdbcType="FLOAT" property="jf" />
+    <result column="DKJF" jdbcType="FLOAT" property="dkjf" />
+    <result column="SJHM" jdbcType="VARCHAR" property="sjhm" />
+    <result column="CARDNO" jdbcType="VARCHAR" property="cardno" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="BJ_OFFLINE" jdbcType="DECIMAL" property="bjOffline" />
+    <result column="SYJF" jdbcType="FLOAT" property="syjf" />
+    <result column="BACKREASON" jdbcType="DECIMAL" property="backreason" />
+    <result column="SHOPID" jdbcType="DECIMAL" property="shopid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SKTNO, JLBH, JYSJ, JZRQ, SKY, THFHR, VIPTYPE, GLKKH, ZLJE, XSJE, VIPID, XFJLID, SKTNO_OLD, 
+    JLBH_OLD, JF, DKJF, SJHM, CARDNO, STATUS, BJ_OFFLINE, SYJF, BACKREASON, SHOPID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="xb.posservice.dao.vo.HIS_SALEKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HIS_SALE
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+  </select>
+  <select id="selectMaxJlbh" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from HIS_SALE
+		where SKTNO = #{sktno,jdbcType=VARCHAR} and STATUS>0 AND ROWNUM=1
+		order by jlbh desc
+	</select>
+  <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.HIS_SALEKey">
+    delete from HIS_SALE
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.HIS_SALE">
+    insert into HIS_SALE (SKTNO, JLBH, JYSJ, 
+      JZRQ, SKY, THFHR, 
+      VIPTYPE, GLKKH, ZLJE, 
+      XSJE, VIPID, XFJLID, 
+      SKTNO_OLD, JLBH_OLD, JF, 
+      DKJF, SJHM, CARDNO, STATUS, 
+      BJ_OFFLINE, SYJF, BACKREASON, 
+      SHOPID)
+    values (#{sktno,jdbcType=VARCHAR}, #{jlbh,jdbcType=DECIMAL}, #{jysj,jdbcType=TIMESTAMP}, 
+      #{jzrq,jdbcType=TIMESTAMP}, #{sky,jdbcType=DECIMAL}, #{thfhr,jdbcType=DECIMAL}, 
+      #{viptype,jdbcType=DECIMAL}, #{glkkh,jdbcType=VARCHAR}, #{zlje,jdbcType=DECIMAL}, 
+      #{xsje,jdbcType=DECIMAL}, #{vipid,jdbcType=DECIMAL}, #{xfjlid,jdbcType=DECIMAL}, 
+      #{sktnoOld,jdbcType=VARCHAR}, #{jlbhOld,jdbcType=DECIMAL}, #{jf,jdbcType=FLOAT}, 
+      #{dkjf,jdbcType=FLOAT}, #{sjhm,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, 
+      #{bjOffline,jdbcType=DECIMAL}, #{syjf,jdbcType=FLOAT}, #{backreason,jdbcType=DECIMAL}, 
+      #{shopid,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.HIS_SALE">
+    insert into HIS_SALE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        SKTNO,
+      </if>
+      <if test="jlbh != null">
+        JLBH,
+      </if>
+      <if test="jysj != null">
+        JYSJ,
+      </if>
+      <if test="jzrq != null">
+        JZRQ,
+      </if>
+      <if test="sky != null">
+        SKY,
+      </if>
+      <if test="thfhr != null">
+        THFHR,
+      </if>
+      <if test="viptype != null">
+        VIPTYPE,
+      </if>
+      <if test="glkkh != null">
+        GLKKH,
+      </if>
+      <if test="zlje != null">
+        ZLJE,
+      </if>
+      <if test="xsje != null">
+        XSJE,
+      </if>
+      <if test="vipid != null">
+        VIPID,
+      </if>
+      <if test="xfjlid != null">
+        XFJLID,
+      </if>
+      <if test="sktnoOld != null">
+        SKTNO_OLD,
+      </if>
+      <if test="jlbhOld != null">
+        JLBH_OLD,
+      </if>
+      <if test="jf != null">
+        JF,
+      </if>
+      <if test="dkjf != null">
+        DKJF,
+      </if>
+      <if test="sjhm != null">
+        SJHM,
+      </if>
+      <if test="cardno != null">
+        CARDNO,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="bjOffline != null">
+        BJ_OFFLINE,
+      </if>
+      <if test="syjf != null">
+        SYJF,
+      </if>
+      <if test="backreason != null">
+        BACKREASON,
+      </if>
+      <if test="shopid != null">
+        SHOPID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        #{sktno,jdbcType=VARCHAR},
+      </if>
+      <if test="jlbh != null">
+        #{jlbh,jdbcType=DECIMAL},
+      </if>
+      <if test="jysj != null">
+        #{jysj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jzrq != null">
+        #{jzrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sky != null">
+        #{sky,jdbcType=DECIMAL},
+      </if>
+      <if test="thfhr != null">
+        #{thfhr,jdbcType=DECIMAL},
+      </if>
+      <if test="viptype != null">
+        #{viptype,jdbcType=DECIMAL},
+      </if>
+      <if test="glkkh != null">
+        #{glkkh,jdbcType=VARCHAR},
+      </if>
+      <if test="zlje != null">
+        #{zlje,jdbcType=DECIMAL},
+      </if>
+      <if test="xsje != null">
+        #{xsje,jdbcType=DECIMAL},
+      </if>
+      <if test="vipid != null">
+        #{vipid,jdbcType=DECIMAL},
+      </if>
+      <if test="xfjlid != null">
+        #{xfjlid,jdbcType=DECIMAL},
+      </if>
+      <if test="sktnoOld != null">
+        #{sktnoOld,jdbcType=VARCHAR},
+      </if>
+      <if test="jlbhOld != null">
+        #{jlbhOld,jdbcType=DECIMAL},
+      </if>
+      <if test="jf != null">
+        #{jf,jdbcType=FLOAT},
+      </if>
+      <if test="dkjf != null">
+        #{dkjf,jdbcType=FLOAT},
+      </if>
+      <if test="sjhm != null">
+        #{sjhm,jdbcType=VARCHAR},
+      </if>
+      <if test="cardno != null">
+        #{cardno,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="bjOffline != null">
+        #{bjOffline,jdbcType=DECIMAL},
+      </if>
+      <if test="syjf != null">
+        #{syjf,jdbcType=FLOAT},
+      </if>
+      <if test="backreason != null">
+        #{backreason,jdbcType=DECIMAL},
+      </if>
+      <if test="shopid != null">
+        #{shopid,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.HIS_SALE">
+    update HIS_SALE
+    <set>
+      <if test="jysj != null">
+        JYSJ = #{jysj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jzrq != null">
+        JZRQ = #{jzrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sky != null">
+        SKY = #{sky,jdbcType=DECIMAL},
+      </if>
+      <if test="thfhr != null">
+        THFHR = #{thfhr,jdbcType=DECIMAL},
+      </if>
+      <if test="viptype != null">
+        VIPTYPE = #{viptype,jdbcType=DECIMAL},
+      </if>
+      <if test="glkkh != null">
+        GLKKH = #{glkkh,jdbcType=VARCHAR},
+      </if>
+      <if test="zlje != null">
+        ZLJE = #{zlje,jdbcType=DECIMAL},
+      </if>
+      <if test="xsje != null">
+        XSJE = #{xsje,jdbcType=DECIMAL},
+      </if>
+      <if test="vipid != null">
+        VIPID = #{vipid,jdbcType=DECIMAL},
+      </if>
+      <if test="xfjlid != null">
+        XFJLID = #{xfjlid,jdbcType=DECIMAL},
+      </if>
+      <if test="sktnoOld != null">
+        SKTNO_OLD = #{sktnoOld,jdbcType=VARCHAR},
+      </if>
+      <if test="jlbhOld != null">
+        JLBH_OLD = #{jlbhOld,jdbcType=DECIMAL},
+      </if>
+      <if test="jf != null">
+        JF = #{jf,jdbcType=FLOAT},
+      </if>
+      <if test="dkjf != null">
+        DKJF = #{dkjf,jdbcType=FLOAT},
+      </if>
+      <if test="sjhm != null">
+        SJHM = #{sjhm,jdbcType=VARCHAR},
+      </if>
+      <if test="cardno != null">
+        CARDNO = #{cardno,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="bjOffline != null">
+        BJ_OFFLINE = #{bjOffline,jdbcType=DECIMAL},
+      </if>
+      <if test="syjf != null">
+        SYJF = #{syjf,jdbcType=FLOAT},
+      </if>
+      <if test="backreason != null">
+        BACKREASON = #{backreason,jdbcType=DECIMAL},
+      </if>
+      <if test="shopid != null">
+        SHOPID = #{shopid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.HIS_SALE">
+    update HIS_SALE
+    set JYSJ = #{jysj,jdbcType=TIMESTAMP},
+      JZRQ = #{jzrq,jdbcType=TIMESTAMP},
+      SKY = #{sky,jdbcType=DECIMAL},
+      THFHR = #{thfhr,jdbcType=DECIMAL},
+      VIPTYPE = #{viptype,jdbcType=DECIMAL},
+      GLKKH = #{glkkh,jdbcType=VARCHAR},
+      ZLJE = #{zlje,jdbcType=DECIMAL},
+      XSJE = #{xsje,jdbcType=DECIMAL},
+      VIPID = #{vipid,jdbcType=DECIMAL},
+      XFJLID = #{xfjlid,jdbcType=DECIMAL},
+      SKTNO_OLD = #{sktnoOld,jdbcType=VARCHAR},
+      JLBH_OLD = #{jlbhOld,jdbcType=DECIMAL},
+      JF = #{jf,jdbcType=FLOAT},
+      DKJF = #{dkjf,jdbcType=FLOAT},
+      SJHM = #{sjhm,jdbcType=VARCHAR},
+      CARDNO = #{cardno,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      BJ_OFFLINE = #{bjOffline,jdbcType=DECIMAL},
+      SYJF = #{syjf,jdbcType=FLOAT},
+      BACKREASON = #{backreason,jdbcType=DECIMAL},
+      SHOPID = #{shopid,jdbcType=DECIMAL}
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>

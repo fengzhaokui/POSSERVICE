@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xb.posservice.dao.FengMapper">
+    <select id="getMemberInfoByhyId" resultType="xb.posservice.dao.vo.MemberBaseInfo" parameterType="INTEGER">
+	    select * from MEM_BASEINFO where HYID=#{hyId, jdbcType=INTEGER} 
+	</select>
+	
+     <select id="getAllMemberInfo" resultType="xb.posservice.dao.vo.MemberBaseInfo">
+	    select * from MEM_BASEINFO 
+	</select>
+	
+     <insert id="addMemberInfo" parameterType="xb.posservice.dao.vo.MemberBaseInfo">
+    	insert into MEM_BASEINFO
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      HYID,
+	      <if test="openId != null" >
+	        OPENID,
+	      </if>
+	      <if test="hykType != null" >
+	        hykType,
+	      </if>
+	    
+	   
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      #{hyId},
+	      <if test="openId != null" >
+	        #{openId, jdbcType=VARCHAR},
+	      </if>
+	      <if test="hykType != null" >
+	        #{hykType},
+	      </if>
+	      
+	     
+	    </trim>
+	</insert>	
+</mapper>

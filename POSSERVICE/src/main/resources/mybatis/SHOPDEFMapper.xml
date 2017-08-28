@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.SHOPDEFMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.SHOPDEF">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="MALLID" jdbcType="DECIMAL" property="mallid" />
+    <result column="FLOORID" jdbcType="DECIMAL" property="floorid" />
+    <result column="JDECODE" jdbcType="VARCHAR" property="jdecode" />
+    <result column="OLD_MDID" jdbcType="VARCHAR" property="oldMdid" />
+    <result column="TM" jdbcType="DECIMAL" property="tm" />
+    <result column="NOSALEFLAG" jdbcType="DECIMAL" property="nosaleflag" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="xb.posservice.dao.vo.SHOPDEF">
+    <result column="THIRDKEY" jdbcType="VARBINARY" property="thirdkey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CODE, NAME, MALLID, FLOORID, JDECODE, OLD_MDID, TM, NOSALEFLAG
+  </sql>
+  <sql id="Blob_Column_List">
+    THIRDKEY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from SHOPDEF
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SHOPDEF
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.SHOPDEF">
+    insert into SHOPDEF (ID, CODE, NAME, 
+      MALLID, FLOORID, JDECODE, 
+      OLD_MDID, TM, NOSALEFLAG, 
+      THIRDKEY)
+    values (#{id,jdbcType=DECIMAL}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{mallid,jdbcType=DECIMAL}, #{floorid,jdbcType=DECIMAL}, #{jdecode,jdbcType=VARCHAR}, 
+      #{oldMdid,jdbcType=VARCHAR}, #{tm,jdbcType=DECIMAL}, #{nosaleflag,jdbcType=DECIMAL}, 
+      #{thirdkey,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.SHOPDEF">
+    insert into SHOPDEF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="mallid != null">
+        MALLID,
+      </if>
+      <if test="floorid != null">
+        FLOORID,
+      </if>
+      <if test="jdecode != null">
+        JDECODE,
+      </if>
+      <if test="oldMdid != null">
+        OLD_MDID,
+      </if>
+      <if test="tm != null">
+        TM,
+      </if>
+      <if test="nosaleflag != null">
+        NOSALEFLAG,
+      </if>
+      <if test="thirdkey != null">
+        THIRDKEY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mallid != null">
+        #{mallid,jdbcType=DECIMAL},
+      </if>
+      <if test="floorid != null">
+        #{floorid,jdbcType=DECIMAL},
+      </if>
+      <if test="jdecode != null">
+        #{jdecode,jdbcType=VARCHAR},
+      </if>
+      <if test="oldMdid != null">
+        #{oldMdid,jdbcType=VARCHAR},
+      </if>
+      <if test="tm != null">
+        #{tm,jdbcType=DECIMAL},
+      </if>
+      <if test="nosaleflag != null">
+        #{nosaleflag,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdkey != null">
+        #{thirdkey,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.SHOPDEF">
+    update SHOPDEF
+    <set>
+      <if test="code != null">
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mallid != null">
+        MALLID = #{mallid,jdbcType=DECIMAL},
+      </if>
+      <if test="floorid != null">
+        FLOORID = #{floorid,jdbcType=DECIMAL},
+      </if>
+      <if test="jdecode != null">
+        JDECODE = #{jdecode,jdbcType=VARCHAR},
+      </if>
+      <if test="oldMdid != null">
+        OLD_MDID = #{oldMdid,jdbcType=VARCHAR},
+      </if>
+      <if test="tm != null">
+        TM = #{tm,jdbcType=DECIMAL},
+      </if>
+      <if test="nosaleflag != null">
+        NOSALEFLAG = #{nosaleflag,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdkey != null">
+        THIRDKEY = #{thirdkey,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="xb.posservice.dao.vo.SHOPDEF">
+    update SHOPDEF
+    set CODE = #{code,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      MALLID = #{mallid,jdbcType=DECIMAL},
+      FLOORID = #{floorid,jdbcType=DECIMAL},
+      JDECODE = #{jdecode,jdbcType=VARCHAR},
+      OLD_MDID = #{oldMdid,jdbcType=VARCHAR},
+      TM = #{tm,jdbcType=DECIMAL},
+      NOSALEFLAG = #{nosaleflag,jdbcType=DECIMAL},
+      THIRDKEY = #{thirdkey,jdbcType=VARBINARY}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.SHOPDEF">
+    update SHOPDEF
+    set CODE = #{code,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      MALLID = #{mallid,jdbcType=DECIMAL},
+      FLOORID = #{floorid,jdbcType=DECIMAL},
+      JDECODE = #{jdecode,jdbcType=VARCHAR},
+      OLD_MDID = #{oldMdid,jdbcType=VARCHAR},
+      TM = #{tm,jdbcType=DECIMAL},
+      NOSALEFLAG = #{nosaleflag,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>
