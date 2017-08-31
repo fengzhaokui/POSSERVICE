@@ -115,8 +115,8 @@ public class LoginController {
 	// @AuthChecker
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public ResultData login(@RequestParam String machinecode, @RequestParam String password,
-			@RequestParam String personcode) {
+	public ResultData login(@RequestParam(value="machinecode", required=false) String machinecode, @RequestParam(value="password", required=false) String password,
+			@RequestParam(value="personcode", required=false) String personcode) throws Exception{
 		ResultData result = new ResultData();
 		InLoginInfo info = new InLoginInfo();
 		info.machinecode = machinecode;
@@ -238,7 +238,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/getposinitializeinfo", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public ResultData GetPosInitializeInfo(@RequestParam String token) {
+	public ResultData GetPosInitializeInfo(@RequestParam(value="token", required=false) String token) throws Exception{
 		ResultData result = new ResultData();
 		if (CommonUtils.Isnullstr(token)) {
 			result.setRetcode("01");

@@ -96,8 +96,9 @@ public class ApiServiceImpl implements ApiService {
 
 		}
 		try {
+			logger.info("url:"+urlBuffer.toString()+";参数"+postParams);
 			String result = post(urlBuffer.toString(), postParams, apiInfo.getApiTimeout());
-			System.out.print(result);
+			logger.info("url:"+urlBuffer.toString()+"返回:"+result);
 			try {
 				Map<String, Object> resultMap = JsonUtils.json2Map(result);
 				String code = (String) resultMap.get("code");

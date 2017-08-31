@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" 
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
@@ -8,32 +9,36 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
-		default-lazy-init="true">
-		
-	<!--<context:annotation-config />-->
-	<context:property-placeholder ignore-resource-not-found="true" location="classpath:application.properties" />
-	<!--<context:component-scan base-package="com.symboltech.wifimanagement"></context:component-scan>-->
+	default-lazy-init="true">
+
+	<!--<context:annotation-config /> -->
+	<context:property-placeholder
+		ignore-resource-not-found="true" location="classpath:application.properties" />
+	<!--<context:component-scan base-package="com.symboltech.wifimanagement"></context:component-scan> -->
 	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
-	<context:component-scan base-package="xb.posservice" use-default-filters="true">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-	</context:component-scan> 
+	<context:component-scan base-package="xb.posservice"
+		use-default-filters="true">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
 	
-	<aop:aspectj-autoproxy proxy-target-class="false"/>
-	
-	<bean id="apiInfo" class="xb.posservice.vo.APIEntity" >
+
+	<bean id="apiInfo" class="xb.posservice.vo.APIEntity">
 		<property name="apiAddress" value="${api_address}" />
 		<property name="apiPort" value="${api_port}" />
-		<property name="apiId" value="${api_id}"/>
-		<property name="apiSecret" value="${api_secret}"/>
-		<property name="apiVersion" value="${api_version}"/>
-		<property name="apiTimeout" value="${api_timeout}"/>
-		<property name="apiErrorCount" value="${api_errorcount}"/>
-		<property name="apiCallTime" value="${api_calltime}"/>
+		<property name="apiId" value="${api_id}" />
+		<property name="apiSecret" value="${api_secret}" />
+		<property name="apiVersion" value="${api_version}" />
+		<property name="apiTimeout" value="${api_timeout}" />
+		<property name="apiErrorCount" value="${api_errorcount}" />
+		<property name="apiCallTime" value="${api_calltime}" />
 		<property name="posapiAddress" value="http://192.168.28.239:81/XBapi/" />
 		<property name="msapiAddress" value="http://192.168.28.239:8080/msxfInterface/" />
 	</bean>
-	
-	
-    
+
+
+
 </beans>

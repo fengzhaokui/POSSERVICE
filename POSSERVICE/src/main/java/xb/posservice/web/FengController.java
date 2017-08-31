@@ -2,7 +2,6 @@ package xb.posservice.web;
 
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +29,7 @@ import xb.posservice.dao.vo.TOKEN;
 import xb.posservice.service.FengService;
 import xb.posservice.service.TokenService;
 import xb.posservice.util.AuthChecker;
+import xb.posservice.util.CheckToken;
 import xb.posservice.util.JsonUtils;
 //import com.symboltech.msxfInterface.vo.BaseResultInfo;
 
@@ -109,29 +108,36 @@ public class FengController {
 	} 
 
 	// @RequestMapping("/getallhyxx")
-	// @AuthChecker
+   // @AuthChecker
+   // @SystemControllerLog(description = "删除用户")  
 	@Transactional
 	@RequestMapping(value = "/gethyxx1", method = RequestMethod.GET)
 	@ResponseBody
-	public String getallhyxx1() {
-		
-		TOKEN token = new TOKEN();
-		token.setSktno("123");
-		token.setPersonId(123);
-		token.setCreatetime(new Date());
-		token.setTokenguid(java.util.UUID.randomUUID().toString());
-		tokenService.insert(token);
-		String str=null;
-		//int a=Integer.parseInt(str);
-		TOKEN token1 = new TOKEN();
-		token1.setSktno("1234");
-		token1.setPersonId(1234);
-		token1.setCreatetime(new Date());
-		token1.setTokenguid(java.util.UUID.randomUUID().toString());
-		tokenService.insert(token1);
-		//事物主动回滚
-		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-		return "ok";
+	public ResultData getallhyxx1(@RequestParam(value="hyid", required=false) String hyid) throws Exception{
+		ResultData result=new ResultData();
+		Logger logger = Logger.getLogger(FengController.class);
+		logger.info("打日记成功");
+		int a=Integer.valueOf(hyid);
+		result.setData("ok");
+		result.setRetcode("00");
+		return result;
+//		TOKEN token = new TOKEN();
+//		token.setSktno("123");
+//		token.setPersonId(123);
+//		token.setCreatetime(new Date());
+//		token.setTokenguid(java.util.UUID.randomUUID().toString());
+//		tokenService.insert(token);
+//		String str=null;
+//		//int a=Integer.parseInt(str);
+//		TOKEN token1 = new TOKEN();
+//		token1.setSktno("1234");
+//		token1.setPersonId(1234);
+//		token1.setCreatetime(new Date());
+//		token1.setTokenguid(java.util.UUID.randomUUID().toString());
+//		tokenService.insert(token1);
+//		//事物主动回滚
+//		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//		return result;
 		
 //		System.out.print("ok");
 //		 Date currentTime = new Date();  

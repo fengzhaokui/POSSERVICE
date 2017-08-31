@@ -67,7 +67,7 @@ public class MsxfPayController {
 			@RequestParam String jlbh, @RequestParam String qrcode, @RequestParam String hyid,
 			@RequestParam String goodsInfo, @RequestParam String rate, @RequestParam String goodsName,
 			@RequestParam String industryCode, @RequestParam String goodsDescription, @RequestParam String amount,
-			@RequestParam String orderId) throws Exception {
+			@RequestParam String orderId,@RequestParam String partnerId,@RequestParam String partnerName) throws Exception {
 		// 验证二维码是否合法；
 		ResultData result = new ResultData();
 		MEMQRCODE memqrcode = memqrcodeService.selectByQRCODE(qrcode);
@@ -90,8 +90,8 @@ public class MsxfPayController {
 		paramMap.put("jlbh", jlbh);
 		paramMap.put("hyId", hyid);
 		paramMap.put("direction", "1");
-		paramMap.put("partnerId", "佳惠");
-		paramMap.put("partnerName", "佳惠");
+		paramMap.put("partnerId", partnerId);
+		paramMap.put("partnerName", partnerName);
 		paramMap.put("goodsInfo", goodsInfo);
 		paramMap.put("orderId", orderId);
 		paramMap.put("goodsName", goodsName);

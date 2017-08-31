@@ -88,7 +88,7 @@ public class SKFSPayController {
 	// @AuthChecker
 	@RequestMapping(value = "/savebankinfolist", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public ResultData SaveBankInfoList(@RequestParam String data) {
+	public ResultData SaveBankInfoList(@RequestParam(value="data", required=false) String data) {
 		ResultData result = new ResultData();
 		Gson gson = new Gson();
 		SaveState state = new SaveState();

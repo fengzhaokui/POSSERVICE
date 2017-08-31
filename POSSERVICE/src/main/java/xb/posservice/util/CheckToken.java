@@ -2,26 +2,28 @@ package xb.posservice.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.google.gson.Gson;
 
 import net.sf.json.JSONObject;
 import xb.posservice.dao.vo.ResultData;
 import xb.posservice.dao.vo.TOKEN;
 import xb.posservice.service.TokenService;
+import org.apache.catalina.connector.CoyoteOutputStream;
+import org.apache.catalina.connector.OutputBuffer;
+import org.apache.tomcat.util.buf.ByteChunk;
 
 /*
  所有接口检验token；记录接口调用输入日记；记录接口响应时间；
@@ -32,18 +34,17 @@ public class CheckToken extends HandlerInterceptorAdapter {
 	private TokenService tokenService;
 
 	Logger logger = Logger.getLogger(CheckToken.class);
-    //打印输入日记 获取token；
+
+	// 打印输入日记 获取token；
 	private String getUserToken(HttpServletRequest request) {
 		StringBuffer url = request.getRequestURL();
 		if (request.getQueryString() != null) {
 			url.append("?");
 			url.append(request.getQueryString());
 		}
-		// logger.info(url);
-		//String str = getBodyData(request);
-		// System.out.print(str);
-		//logger.info(url + ";boby:" + str);
-		//System.out.print(url + ";boby:" + str);
+		Gson gson = new Gson();
+		logger.info(request.getRequestURL() + "接口参数：" + gson.toJson(request.getParameterMap()));
+
 		return request.getParameter("token");
 
 	}
@@ -70,9 +71,9 @@ public class CheckToken extends HandlerInterceptorAdapter {
 		PrintWriter out = null;
 		try {
 			out = response.getWriter();
+			
 			out.append(responseJSONObject.toString());
-			logger.info("返回是\n");
-			logger.info(responseJSONObject.toString());
+			logger.info("接口报错，返回:" + responseJSONObject.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -88,12 +89,7 @@ public class CheckToken extends HandlerInterceptorAdapter {
 
 		long startTime = System.currentTimeMillis();
 		request.setAttribute("startTime", startTime);
-		// StringBuffer url = request.getRequestURL();
-		// if (request.getQueryString() != null) {
-		// url.append("?");
-		// url.append(request.getQueryString());
-		// }
-		// logger.info(url);
+
 		ResultData result = new ResultData();
 		result.setRetcode("00");
 		// 检查用户所传递的 token 是否合法
@@ -112,8 +108,9 @@ public class CheckToken extends HandlerInterceptorAdapter {
 				return false;
 			}
 		}
-
 		return true;
+		// return super.preHandle(request, response, handler);
+
 	}
 
 	//
@@ -127,23 +124,45 @@ public class CheckToken extends HandlerInterceptorAdapter {
 		if (handler instanceof HandlerMethod) {
 			StringBuilder sb = new StringBuilder(1000);
 			sb.append(url + "接口耗时  : ").append(executeTime).append("ms").append("\n");
-			sb.append("-------------------------------------------------------------------------------");
-			//System.out.println(sb.toString());
 			logger.info(sb.toString());
+//			Gson gson = new Gson();
+//			// 截取响应流
+//			CoyoteOutputStream os =(CoyoteOutputStream)response.getOutputStream();
+//			// 取到流对象对应的Class对象
+//			Class<CoyoteOutputStream> c = CoyoteOutputStream.class;
+//			// 取出流对象中的OutputBuffer对象，该对象记录响应到客户端的内容
+//			Field fs = c.getDeclaredField("ob");
+//			if (fs.getType().toString().endsWith("OutputBuffer")) {
+//				fs.setAccessible(true);// 设置访问ob属性的权限
+//				OutputBuffer ob = (OutputBuffer) fs.get(os);// 取出ob
+//				logger.info("ob"+ob);
+//				Class<OutputBuffer> cc = OutputBuffer.class;
+//				Field ff = cc.getDeclaredField("outputChunk");// 取到OutputBuffer中的输出流
+//				ff.setAccessible(true);
+//				if (ff.getType().toString().endsWith("ByteChunk")) {
+//					ByteChunk bc = (ByteChunk) ff.get(ob);// 取到byte流
+//					String val = new String(bc.getBytes(), "UTF-8");// 最终的值
+//					// System.out.println(val);
+//					logger.info(url+"输出：" + val);
+//				}
+//				//ob.close();
+//			}
 		}
-
+		super.postHandle(request, response, handler, modelAndView);
 	}
 
 	//
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		if(ex!=null)
-		{
+		if (ex != null) {
 			logger.error(ex);
+			ResultData result = new ResultData();
+			result.setRetcode("01");
+			result.setRetmsg("参数错误!");
+			SetErrorRespon(response, result);
 		}
-		//ServletOutputStream aa = response.getOutputStream();
-		
+		super.afterCompletion(request, response, handler, ex);
 	}
-	
+
 }

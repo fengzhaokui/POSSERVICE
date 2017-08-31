@@ -62,7 +62,7 @@ public class CouponController {
 	// @AuthChecker
 	@RequestMapping(value = "/checkcoupon", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public ResultData checkcoupon(@RequestParam String token,@RequestParam String billid,@RequestParam String billmoney,@RequestParam String posno,@RequestParam String couponlist) throws Exception {
+	public ResultData checkcoupon(@RequestParam(value="token", required=false) String token,@RequestParam(value="billid", required=false) String billid,@RequestParam(value="billmoney", required=false) String billmoney,@RequestParam(value="posno", required=false) String posno,@RequestParam(value="couponlist", required=false) String couponlist) throws Exception {
 		ResultData result = new ResultData();
 		InCheckCouponInfo info=new InCheckCouponInfo();
 		Gson gson = new Gson();

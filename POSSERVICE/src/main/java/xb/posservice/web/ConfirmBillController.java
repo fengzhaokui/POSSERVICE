@@ -60,14 +60,14 @@ public class ConfirmBillController {
 	// @AuthChecker @RequestBody InConfirmBillInfo info,
 	@RequestMapping(value = "/confirmbill", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String ConfirmBill(@RequestParam String token,@RequestParam String billinfo) throws Exception {
+	public String ConfirmBill(@RequestParam(value="token", required=false) String token,@RequestParam(value="billinfo", required=false) String billinfo) throws Exception {
 		Gson gson = new Gson();
 		ResultData result = new ResultData();
 
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("billinfo",billinfo);
 		paramMap.put("token",token);
-		logger.info(JsonUtils.hashMap2Json(paramMap));
+		//logger.info(JsonUtils.hashMap2Json(paramMap));
 		String apiresult = apiService.sendRequest("LMConfirmBill", paramMap);
 		if (CommonUtils.Isnullstr(apiresult)) {
 			result.setRetcode("01");

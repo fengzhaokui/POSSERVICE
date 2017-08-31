@@ -63,7 +63,7 @@ public class NetCommonController {
 	// @AuthChecker
 	@RequestMapping(value = "/unlock", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String unlock(@RequestParam String token, @RequestParam String password) throws Exception {
+	public String unlock(@RequestParam(value="token", required=false) String token, @RequestParam(value="password", required=false) String password) throws Exception {
 
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("password", password);
@@ -79,8 +79,8 @@ public class NetCommonController {
 	// @AuthChecker
 	@RequestMapping(value = "/repassword", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String RePassword(@RequestParam String token, @RequestParam String personcode, @RequestParam String newpwd,
-			@RequestParam String oldpwd) throws Exception {
+	public String RePassword(@RequestParam(value="token", required=false) String token, @RequestParam(value="personcode", required=false) String personcode, @RequestParam(value="newpwd", required=false) String newpwd,
+			@RequestParam(value="oldpwd", required=false) String oldpwd) throws Exception {
 
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("oldpwd", oldpwd);
@@ -98,7 +98,7 @@ public class NetCommonController {
 	// @AuthChecker
 	@RequestMapping(value = "/gettick", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String GetTick(@RequestParam String token) throws Exception {
+	public String GetTick(@RequestParam(value="token", required=false) String token) throws Exception {
 
 		Map<String, String> paramMap = new HashMap<String, String>();
 
@@ -111,7 +111,7 @@ public class NetCommonController {
 	// 获取班报 日报
 	@RequestMapping(value = "/getreportdata", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String GetReportData(@RequestParam String token, @RequestParam String posno, @RequestParam String person_id)
+	public String GetReportData(@RequestParam(value="token", required=false) String token, @RequestParam(value="posno", required=false) String posno, @RequestParam(value="person_id", required=false) String person_id)
 			throws Exception {
 
 		Map<String, String> paramMap = new HashMap<String, String>();
@@ -127,8 +127,8 @@ public class NetCommonController {
 	// 交易补打
 		@RequestMapping(value = "/getreprintinfo", method = RequestMethod.POST, produces = "application/json")
 		@ResponseBody
-		public String GetReprintInfo(@RequestParam String token, @RequestParam String posno, @RequestParam String newposno
-				, @RequestParam String billid)throws Exception {
+		public String GetReprintInfo(@RequestParam(value="token", required=false) String token, @RequestParam(value="posno", required=false) String posno, @RequestParam(value="newposno", required=false) String newposno
+				, @RequestParam(value="billid", required=false) String billid)throws Exception {
 
 			Map<String, String> paramMap = new HashMap<String, String>();
 
@@ -143,8 +143,8 @@ public class NetCommonController {
 		//获取原单数据；
 		@RequestMapping(value = "/getoldticket", method = RequestMethod.POST, produces = "application/json")
 		@ResponseBody
-		public String GetOldTicket(@RequestParam String token, @RequestParam String posno, @RequestParam String newposno
-				, @RequestParam String billid)throws Exception {
+		public String GetOldTicket(@RequestParam(value="token", required=false) String token, @RequestParam(value="posno", required=false) String posno, @RequestParam(value="newposno", required=false) String newposno
+				, @RequestParam(value="billid", required=false) String billid)throws Exception {
 
 			Map<String, String> paramMap = new HashMap<String, String>();
 
