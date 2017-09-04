@@ -23,6 +23,11 @@ public class XtczyServiceImpl implements XtczyService{
 		// TODO Auto-generated method stub
 		return tokenMapper.selectByPWD(xtczy);
 	}
+
+	public int updateByPrimaryKeySelective(XTCZY record) {
+		// TODO Auto-generated method stub
+		return tokenMapper.updateByPrimaryKeySelective(record);
+	}
 	
 	
 }

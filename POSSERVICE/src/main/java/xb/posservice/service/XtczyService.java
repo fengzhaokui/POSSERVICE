@@ -6,4 +6,5 @@ public interface XtczyService {
 	XTCZY selectByPrimaryKey(Long personId);
 
 	XTCZY selectByPWD(XTCZY xtczy);
+	 int updateByPrimaryKeySelective(XTCZY record);
 }

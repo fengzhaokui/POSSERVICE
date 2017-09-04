@@ -36,7 +36,6 @@ import xb.posservice.util.CommonUtils;
 import xb.posservice.util.JsonUtils;
 
 @Controller
-// @RequestMapping("/gethyxx")
 public class ConfirmBillController {
 	Logger logger = Logger.getLogger(ConfirmBillController.class);
 

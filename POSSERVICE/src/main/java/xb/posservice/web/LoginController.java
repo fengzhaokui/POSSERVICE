@@ -1,7 +1,10 @@
 package xb.posservice.web;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -90,10 +93,11 @@ public class LoginController {
 	@Autowired
 	@Qualifier("RefundreasonServiceImpl")
 	private RefundreasonService refundreasonService;
-	
+
 	@Autowired
 	@Qualifier("SkfsServiceImpl")
 	private SkfsService skfsService;
+
 	// @AuthChecker
 	@RequestMapping(value = "/getskt", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
@@ -115,8 +119,9 @@ public class LoginController {
 	// @AuthChecker
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public ResultData login(@RequestParam(value="machinecode", required=false) String machinecode, @RequestParam(value="password", required=false) String password,
-			@RequestParam(value="personcode", required=false) String personcode) throws Exception{
+	public ResultData login(@RequestParam(value = "machinecode", required = false) String machinecode,
+			@RequestParam(value = "password", required = false) String password,
+			@RequestParam(value = "personcode", required = false) String personcode) throws Exception {
 		ResultData result = new ResultData();
 		InLoginInfo info = new InLoginInfo();
 		info.machinecode = machinecode;
@@ -158,16 +163,15 @@ public class LoginController {
 		}
 		oinfo.mallmsg = minfo;
 		long rydm = Long.valueOf(info.personcode);
-		PERSONINFO pinfo = personinfoService.selectByrydm(rydm,shop.getId());
+		PERSONINFO pinfo = personinfoService.selectByrydm(rydm, shop.getId());
 		if (pinfo != null) {
 			oinfo.setPerson_id(pinfo.getPersonId().toString());
 			oinfo.setPerson_name(pinfo.getPersonName());
 			oinfo.setPersoncode(pinfo.getRydm());
-		}
-		else{
-			 result.setRetcode("06");
-             result.setRetmsg("您不是本门店营业员");
-             return result;
+		} else {
+			result.setRetcode("06");
+			result.setRetmsg("您不是本门店营业员");
+			return result;
 		}
 		// 验证密码
 		XTCZY czy = new XTCZY();
@@ -227,7 +231,7 @@ public class LoginController {
 		token.setSktno(skt.getSktno());
 		token.setPersonId(pinfo.getPersonId().intValue());
 		token.setCreatetime(new Date());
-		token.setTokenguid(java.util.UUID.randomUUID().toString().replaceAll("-", "")+skt.getSktno());
+		token.setTokenguid(java.util.UUID.randomUUID().toString().replaceAll("-", "") + skt.getSktno());
 		oinfo.setToken(token.getTokenguid());
 		tokenService.insert(token);
 		result.setData(oinfo);
@@ -238,7 +242,8 @@ public class LoginController {
 
 	@RequestMapping(value = "/getposinitializeinfo", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public ResultData GetPosInitializeInfo(@RequestParam(value="token", required=false) String token) throws Exception{
+	public ResultData GetPosInitializeInfo(@RequestParam(value = "token", required = false) String token)
+			throws Exception {
 		ResultData result = new ResultData();
 		if (CommonUtils.Isnullstr(token)) {
 			result.setRetcode("01");
@@ -280,14 +285,130 @@ public class LoginController {
 			pay.type = item.getType().toString();
 			if (item.getYhqid() != null)
 				pay.couponid = item.getYhqid().toString();
-			
+
 		}
-		List<REFUNDREASON> reflist= refundreasonService.selectall();
-        oinfo.refundreasonlist=reflist;
+		List<REFUNDREASON> reflist = refundreasonService.selectall();
+		oinfo.refundreasonlist = reflist;
 		result.setData(oinfo);
 
 		result.setRetcode("00");
 		return result;
 	}
 
+	// 解锁
+	// @AuthChecker
+	@RequestMapping(value = "/unlock", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResultData unlock(@RequestParam(value = "token", required = false) String token,
+			@RequestParam(value = "password", required = false) String password) throws Exception {
+		ResultData result = new ResultData();
+		if (CommonUtils.Isnullstr(password)) {
+			result.setRetcode("-1");
+			result.setRetmsg("密码不可为空");
+			return result;
+		}
+		TOKEN tokendata = tokenService.selectByPrimaryKey(token);
+		if (tokendata == null) {
+			result.setRetcode("01");
+			result.setRetmsg("token失效");
+			return result;
+		}
+		// 验证密码
+		XTCZY czy = new XTCZY();
+		czy.setPersonId(tokendata.getPersonId().longValue());
+		czy.setLoginPassword(password.toUpperCase());
+		XTCZY xtczy = xtczyService.selectByPWD(czy);
+		if (xtczy == null) {
+			result.setRetcode("01");
+			result.setRetmsg("密码错误");
+			return result;
+		}
+		SKT skt = sktService.selectByPrimaryKey(tokendata.getSktno());
+		PERSONINFO person = personinfoService.selectByPrimaryKey(tokendata.getPersonId().longValue());
+		if (person != null && skt != null) {
+			if (person.getDeptid() == skt.getShopid().longValue()) {
+				result.setRetcode("00");
+				// result.setRetmsg("密码错误");
+				return result;
+			}
+		}
+		result.setRetcode("01");
+		result.setRetmsg("款员非本店铺，不允许操作");
+		return result;
+		// Map<String, String> paramMap = new HashMap<String, String>();
+		// paramMap.put("password", password);
+		// paramMap.put("token", token);
+		// logger.info(JsonUtils.hashMap2Json(paramMap));
+		// String apiresult = apiService.sendRequest("unlock", paramMap);
+		//
+		// return apiresult;
+
+	}
+
+	// 修改密码
+	// @AuthChecker
+	@RequestMapping(value = "/repassword", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResultData RePassword(@RequestParam(value = "token", required = false) String token,
+			@RequestParam(value = "personcode", required = false) String personcode,
+			@RequestParam(value = "newpwd", required = false) String newpwd,
+			@RequestParam(value = "oldpwd", required = false) String oldpwd) throws Exception {
+		ResultData result = new ResultData();
+		if (CommonUtils.Isnullstr(newpwd) || CommonUtils.Isnullstr(oldpwd) || CommonUtils.Isnullstr(personcode)) {
+			result.setRetcode("-1");
+			result.setRetmsg("参数不可为空");
+			return result;
+		}
+		TOKEN tokendata = tokenService.selectByPrimaryKey(token);
+		if (tokendata == null) {
+			result.setRetcode("01");
+			result.setRetmsg("token失效");
+			return result;
+		}
+		SKT skt = sktService.selectByPrimaryKey(tokendata.getSktno());
+		PERSONINFO person = personinfoService.selectByrydm(Long.valueOf(personcode), skt.getShopid());
+		if(person==null)
+		{
+			result.setRetcode("01");
+			result.setRetmsg("营业员不存在");
+			return result;
+		}
+		
+		// 验证密码
+		XTCZY czy = new XTCZY();
+		czy.setPersonId(person.getPersonId().longValue());
+		czy.setLoginPassword(oldpwd.toUpperCase());
+		XTCZY xtczy = xtczyService.selectByPWD(czy);
+		if (xtczy == null) {
+			result.setRetcode("01");
+			result.setRetmsg("密码错误");
+			return result;
+		}
+		XTCZY xt=new XTCZY();
+		xt.setPersonId(person.getPersonId().longValue());
+		xt.setLoginPassword(newpwd.toUpperCase());
+		int num=xtczyService.updateByPrimaryKeySelective(xt);
+		if(num>0)
+		{
+			result.setRetcode("00");
+			//result.setRetmsg("密码错误");
+		}
+		else
+		{
+			result.setRetcode("01");
+			result.setRetmsg("修改密码失败");
+		}
+
+		return result;
+		// Map<String, String> paramMap = new HashMap<String, String>();
+		// paramMap.put("oldpwd", oldpwd);
+		// paramMap.put("personcode", personcode);
+		// paramMap.put("newpwd", newpwd);
+		// paramMap.put("token", token);
+		// logger.info(JsonUtils.hashMap2Json(paramMap));
+		// String apiresult = apiService.sendRequest("repassword", paramMap);
+		//
+		// return apiresult;
+
+	}
 }
