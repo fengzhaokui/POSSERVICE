@@ -1,5 +1,7 @@
 package xb.posservice.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +21,13 @@ public class SaleBankdetailServiceImpl implements SaleBankdetailService{
 		// TODO Auto-generated method stub
 		return mapper.selectByPrimaryKey(key);
 	}
-	public SALE_BANKDETAIL selectByskt(SALE_BANKDETAILKey key) {
+	public List<SALE_BANKDETAIL> selectByskt(SALE_BANKDETAILKey key) {
 		// TODO Auto-generated method stub
 		return mapper.selectByskt(key);
+	}
+	public SALE_BANKDETAIL selectoneByskt(SALE_BANKDETAILKey key) {
+		// TODO Auto-generated method stub
+		return mapper.selectoneByskt(key);
 	}
 
 }

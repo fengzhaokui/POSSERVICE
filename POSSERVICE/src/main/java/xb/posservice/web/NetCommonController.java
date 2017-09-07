@@ -56,38 +56,37 @@ public class NetCommonController {
 		return apiresult;
 	}
 
-	// 获取班报 日报
-	@RequestMapping(value = "/getreportdata", method = RequestMethod.POST, produces = "application/json")
-	@ResponseBody
-	public String GetReportData(@RequestParam(value="token", required=false) String token, @RequestParam(value="posno", required=false) String posno, @RequestParam(value="person_id", required=false) String person_id)
-			throws Exception {
-
-		Map<String, String> paramMap = new HashMap<String, String>();
-
-		paramMap.put("token", token);
-		paramMap.put("posno", posno);
-		paramMap.put("person_id", person_id);
-		logger.info(JsonUtils.hashMap2Json(paramMap));
-		String apiresult = apiService.sendRequest("getreportdata", paramMap);
-		return apiresult;
-	}
+//	// 获取班报 日报
+//	@RequestMapping(value = "/getreportdata", method = RequestMethod.POST, produces = "application/json")
+//	@ResponseBody
+//	public String GetReportData(@RequestParam(value="token", required=false) String token, @RequestParam(value="posno", required=false) String posno, @RequestParam(value="person_id", required=false) String person_id)
+//			throws Exception {
+//
+//		Map<String, String> paramMap = new HashMap<String, String>();
+//
+//		paramMap.put("token", token);
+//		paramMap.put("posno", posno);
+//		paramMap.put("person_id", person_id);
+//		logger.info(JsonUtils.hashMap2Json(paramMap));
+//		String apiresult = apiService.sendRequest("getreportdata", paramMap);
+//		return apiresult;
+//	}
 	
-	// 交易补打
-		@RequestMapping(value = "/getreprintinfo", method = RequestMethod.POST, produces = "application/json")
-		@ResponseBody
-		public String GetReprintInfo(@RequestParam(value="token", required=false) String token, @RequestParam(value="posno", required=false) String posno, @RequestParam(value="newposno", required=false) String newposno
-				, @RequestParam(value="billid", required=false) String billid)throws Exception {
-
-			Map<String, String> paramMap = new HashMap<String, String>();
-
-			paramMap.put("token", token);
-			paramMap.put("posno", posno);
-			paramMap.put("newposno", newposno);
-			paramMap.put("billid", billid);
-			logger.info(JsonUtils.hashMap2Json(paramMap));
-			String apiresult = apiService.sendRequest("getreprintinfo", paramMap);
-			return apiresult;
-		}
+//	// 交易补打
+//		@RequestMapping(value = "/getreprintinfo", method = RequestMethod.POST, produces = "application/json")
+//		@ResponseBody
+//		public String GetReprintInfo(@RequestParam(value="token", required=false) String token, @RequestParam(value="posno", required=false) String posno, @RequestParam(value="newposno", required=false) String newposno
+//				, @RequestParam(value="billid", required=false) String billid)throws Exception {
+//
+//			Map<String, String> paramMap = new HashMap<String, String>();
+//			paramMap.put("token", token);
+//			paramMap.put("posno", posno);
+//			paramMap.put("newposno", newposno);
+//			paramMap.put("billid", billid);
+//			logger.info(JsonUtils.hashMap2Json(paramMap));
+//			String apiresult = apiService.sendRequest("getreprintinfo", paramMap);
+//			return apiresult;
+//		}
 		//获取原单数据；
 		@RequestMapping(value = "/getoldticket", method = RequestMethod.POST, produces = "application/json")
 		@ResponseBody

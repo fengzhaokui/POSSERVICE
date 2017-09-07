@@ -48,7 +48,7 @@ public class SKFSPayController {
 		SALE_BANKDETAILKey key = new SALE_BANKDETAILKey();
 		key.setJlbh(Long.valueOf(billid));
 		key.setSktno(posno);
-		SALE_BANKDETAIL old = sbService.selectByskt(key);
+		SALE_BANKDETAIL old = sbService.selectoneByskt(key);
 		Integer inx = 0;
 		if (old == null) {
 			// result.setRetmsg("没有记录");
@@ -100,7 +100,7 @@ public class SKFSPayController {
 			SALE_BANKDETAILKey key = new SALE_BANKDETAILKey();
 			key.setJlbh(Long.valueOf(info.billid));
 			key.setSktno(info.posno);
-			SALE_BANKDETAIL old = sbService.selectByskt(key);
+			SALE_BANKDETAIL old = sbService.selectoneByskt(key);
 			Integer inx = 0;
 			if (old == null) {
 				// result.setRetmsg("没有记录");

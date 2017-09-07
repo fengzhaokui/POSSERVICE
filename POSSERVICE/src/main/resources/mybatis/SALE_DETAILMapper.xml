@@ -30,6 +30,13 @@
       and TCKT_INX = #{tcktInx,jdbcType=DECIMAL}
       and INX = #{inx,jdbcType=DECIMAL}
   </select>
+  <select id="selectByskt" parameterType="xb.posservice.dao.vo.SALE_DETAILKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_DETAIL
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_DETAILKey">
     delete from SALE_DETAIL
     where SKTNO = #{sktno,jdbcType=VARCHAR}

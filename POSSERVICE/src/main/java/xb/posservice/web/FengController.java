@@ -111,14 +111,20 @@ public class FengController {
    // @AuthChecker
    // @SystemControllerLog(description = "删除用户")  
 	@Transactional
-	@RequestMapping(value = "/gethyxx1", method = RequestMethod.GET)
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody
 	public ResultData getallhyxx1(@RequestParam(value="hyid", required=false) String hyid) throws Exception{
 		ResultData result=new ResultData();
 		Logger logger = Logger.getLogger(FengController.class);
 		logger.info("打日记成功");
-		int a=Integer.valueOf(hyid);
-		result.setData("ok");
+		Map<String,Object> mm=new HashMap<String,Object>();  
+		mm.put("sktno", "1001");  
+		mm.put("rq", "20170828");  
+		mm.put("person", -1);  
+		fengService.WRITE_SKTRB(mm);
+		//m.queryTeacher(mm);  
+	//	System.out.println(mm.get("num"));  
+	//	result.setData(mm.get("num"));
 		result.setRetcode("00");
 		return result;
 //		TOKEN token = new TOKEN();

@@ -26,6 +26,13 @@
       and JLBH = #{jlbh,jdbcType=DECIMAL}
       and INX = #{inx,jdbcType=DECIMAL}
   </select>
+  <select id="selectByskt" parameterType="xb.posservice.dao.vo.SALE_THIRDPAYKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_THIRDPAY
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL} order by JYLX 
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_THIRDPAYKey">
     delete from SALE_THIRDPAY
     where SKTNO = #{sktno,jdbcType=VARCHAR}

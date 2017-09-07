@@ -38,6 +38,9 @@
 		from SALE
 		where SKTNO = #{sktno,jdbcType=VARCHAR}
 		and JLBH = #{jlbh,jdbcType=DECIMAL}
+		 <if test="status != null">
+    AND STATUS = #{status}
+  </if>
 	</select>
 	<select id="selectMaxJlbh" parameterType="java.lang.String"
 		resultMap="BaseResultMap">

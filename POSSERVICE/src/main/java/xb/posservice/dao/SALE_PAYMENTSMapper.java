@@ -1,5 +1,7 @@
 package xb.posservice.dao;
 
+import java.util.List;
+
 import xb.posservice.dao.vo.SALE_PAYMENTS;
 import xb.posservice.dao.vo.SALE_PAYMENTSKey;
 
@@ -11,6 +13,7 @@ public interface SALE_PAYMENTSMapper {
     int insertSelective(SALE_PAYMENTS record);
 
     SALE_PAYMENTS selectByPrimaryKey(SALE_PAYMENTSKey key);
+    List<SALE_PAYMENTS> selectByskt(SALE_PAYMENTSKey key);
 
     int updateByPrimaryKeySelective(SALE_PAYMENTS record);
 

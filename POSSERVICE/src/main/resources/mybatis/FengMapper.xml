@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="xb.posservice.dao.FengMapper">
+    
+    <select id="WRITE_SKTRB" statementType="CALLABLE" parameterType="java.util.Map">  
+       {call WRITE_SKTRB(#{sktno,mode=IN,jdbcType=VARCHAR},#{rq,mode=IN,jdbcType=VARCHAR},#{person,mode=IN,jdbcType=INTEGER})}  
+    </select>
+   
     <select id="getMemberInfoByhyId" resultType="xb.posservice.dao.vo.MemberBaseInfo" parameterType="INTEGER">
 	    select * from MEM_BASEINFO where HYID=#{hyId, jdbcType=INTEGER} 
 	</select>

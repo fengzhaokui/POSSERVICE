@@ -19,6 +19,13 @@
       and JLBH = #{jlbh,jdbcType=DECIMAL}
       and SKFS = #{skfs,jdbcType=DECIMAL}
   </select>
+   <select id="selectByskt" parameterType="xb.posservice.dao.vo.SALE_PAYMENTSKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_PAYMENTS
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_PAYMENTSKey">
     delete from SALE_PAYMENTS
     where SKTNO = #{sktno,jdbcType=VARCHAR}

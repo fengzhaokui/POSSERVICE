@@ -13,6 +13,14 @@ public class CommonUtils {
 		}
 		return false;
 	}
+	public static String ToString(Object obj)
+	{
+		if(obj==null)
+		{
+			return "";
+		}
+		return String.valueOf(obj);
+	}
 	
 	public static String  GetPosNo(String token)
     {
@@ -28,6 +36,19 @@ public class CommonUtils {
 	public static String getNowDate() {  
 		 Date currentTime = new Date();  
 		    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+		    String dateString = formatter.format(currentTime);
+		return  dateString;
+	} 
+	public static String getDateTimeStr(Date currentTime) {  
+		
+		    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+		    String dateString = formatter.format(currentTime);
+		return  dateString;
+	} 
+	
+	public static String getNowDateStr() {  
+		 Date currentTime = new Date();  
+		    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");  
 		    String dateString = formatter.format(currentTime);
 		return  dateString;
 	} 
