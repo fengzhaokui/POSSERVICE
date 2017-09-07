@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.SALE_YQMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.SALE_YQ">
+    <id column="SKTNO" jdbcType="VARCHAR" property="sktno" />
+    <id column="JLBH" jdbcType="DECIMAL" property="jlbh" />
+    <id column="INX" jdbcType="DECIMAL" property="inx" />
+    <result column="HYID" jdbcType="DECIMAL" property="hyid" />
+    <result column="YHQID" jdbcType="DECIMAL" property="yhqid" />
+    <result column="COUPONCODE" jdbcType="VARCHAR" property="couponcode" />
+    <result column="MONEY" jdbcType="DECIMAL" property="money" />
+    <result column="COUPBALANCE" jdbcType="DECIMAL" property="coupbalance" />
+    <result column="COUPNAME" jdbcType="VARCHAR" property="coupname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SKTNO, JLBH, INX, HYID, YHQID, COUPONCODE, MONEY, COUPBALANCE, COUPNAME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_YQKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_YQ
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByskt" parameterType="xb.posservice.dao.vo.SALEKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_YQ
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_YQKey">
+    delete from SALE_YQ
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.SALE_YQ">
+    insert into SALE_YQ (SKTNO, JLBH, INX, 
+      HYID, YHQID, COUPONCODE, 
+      MONEY, COUPBALANCE, COUPNAME
+      )
+    values (#{sktno,jdbcType=VARCHAR}, #{jlbh,jdbcType=DECIMAL}, #{inx,jdbcType=DECIMAL}, 
+      #{hyid,jdbcType=DECIMAL}, #{yhqid,jdbcType=DECIMAL}, #{couponcode,jdbcType=VARCHAR}, 
+      #{money,jdbcType=DECIMAL}, #{coupbalance,jdbcType=DECIMAL}, #{coupname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.SALE_YQ">
+    insert into SALE_YQ
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        SKTNO,
+      </if>
+      <if test="jlbh != null">
+        JLBH,
+      </if>
+      <if test="inx != null">
+        INX,
+      </if>
+      <if test="hyid != null">
+        HYID,
+      </if>
+      <if test="yhqid != null">
+        YHQID,
+      </if>
+      <if test="couponcode != null">
+        COUPONCODE,
+      </if>
+      <if test="money != null">
+        MONEY,
+      </if>
+      <if test="coupbalance != null">
+        COUPBALANCE,
+      </if>
+      <if test="coupname != null">
+        COUPNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        #{sktno,jdbcType=VARCHAR},
+      </if>
+      <if test="jlbh != null">
+        #{jlbh,jdbcType=DECIMAL},
+      </if>
+      <if test="inx != null">
+        #{inx,jdbcType=DECIMAL},
+      </if>
+      <if test="hyid != null">
+        #{hyid,jdbcType=DECIMAL},
+      </if>
+      <if test="yhqid != null">
+        #{yhqid,jdbcType=DECIMAL},
+      </if>
+      <if test="couponcode != null">
+        #{couponcode,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="coupbalance != null">
+        #{coupbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="coupname != null">
+        #{coupname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.SALE_YQ">
+    update SALE_YQ
+    <set>
+      <if test="hyid != null">
+        HYID = #{hyid,jdbcType=DECIMAL},
+      </if>
+      <if test="yhqid != null">
+        YHQID = #{yhqid,jdbcType=DECIMAL},
+      </if>
+      <if test="couponcode != null">
+        COUPONCODE = #{couponcode,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        MONEY = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="coupbalance != null">
+        COUPBALANCE = #{coupbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="coupname != null">
+        COUPNAME = #{coupname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE_YQ">
+    update SALE_YQ
+    set HYID = #{hyid,jdbcType=DECIMAL},
+      YHQID = #{yhqid,jdbcType=DECIMAL},
+      COUPONCODE = #{couponcode,jdbcType=VARCHAR},
+      MONEY = #{money,jdbcType=DECIMAL},
+      COUPBALANCE = #{coupbalance,jdbcType=DECIMAL},
+      COUPNAME = #{coupname,jdbcType=VARCHAR}
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and INX = #{inx,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>

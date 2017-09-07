@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.MEM_TYPEDEFMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.MEM_TYPEDEF">
+    <id column="HYKTYPE" jdbcType="DECIMAL" property="hyktype" />
+    <result column="TYPENAME" jdbcType="VARCHAR" property="typename" />
+    <result column="FLAG_CASHCARD" jdbcType="DECIMAL" property="flagCashcard" />
+    <result column="FLAG_VOUCHER" jdbcType="DECIMAL" property="flagVoucher" />
+    <result column="FLAG_CENT" jdbcType="DECIMAL" property="flagCent" />
+    <result column="ERPCODE" jdbcType="VARCHAR" property="erpcode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    HYKTYPE, TYPENAME, FLAG_CASHCARD, FLAG_VOUCHER, FLAG_CENT, ERPCODE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from MEM_TYPEDEF
+    where HYKTYPE = #{hyktype,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from MEM_TYPEDEF
+    where HYKTYPE = #{hyktype,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.MEM_TYPEDEF">
+    insert into MEM_TYPEDEF (HYKTYPE, TYPENAME, FLAG_CASHCARD, 
+      FLAG_VOUCHER, FLAG_CENT, ERPCODE
+      )
+    values (#{hyktype,jdbcType=DECIMAL}, #{typename,jdbcType=VARCHAR}, #{flagCashcard,jdbcType=DECIMAL}, 
+      #{flagVoucher,jdbcType=DECIMAL}, #{flagCent,jdbcType=DECIMAL}, #{erpcode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.MEM_TYPEDEF">
+    insert into MEM_TYPEDEF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hyktype != null">
+        HYKTYPE,
+      </if>
+      <if test="typename != null">
+        TYPENAME,
+      </if>
+      <if test="flagCashcard != null">
+        FLAG_CASHCARD,
+      </if>
+      <if test="flagVoucher != null">
+        FLAG_VOUCHER,
+      </if>
+      <if test="flagCent != null">
+        FLAG_CENT,
+      </if>
+      <if test="erpcode != null">
+        ERPCODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hyktype != null">
+        #{hyktype,jdbcType=DECIMAL},
+      </if>
+      <if test="typename != null">
+        #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="flagCashcard != null">
+        #{flagCashcard,jdbcType=DECIMAL},
+      </if>
+      <if test="flagVoucher != null">
+        #{flagVoucher,jdbcType=DECIMAL},
+      </if>
+      <if test="flagCent != null">
+        #{flagCent,jdbcType=DECIMAL},
+      </if>
+      <if test="erpcode != null">
+        #{erpcode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.MEM_TYPEDEF">
+    update MEM_TYPEDEF
+    <set>
+      <if test="typename != null">
+        TYPENAME = #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="flagCashcard != null">
+        FLAG_CASHCARD = #{flagCashcard,jdbcType=DECIMAL},
+      </if>
+      <if test="flagVoucher != null">
+        FLAG_VOUCHER = #{flagVoucher,jdbcType=DECIMAL},
+      </if>
+      <if test="flagCent != null">
+        FLAG_CENT = #{flagCent,jdbcType=DECIMAL},
+      </if>
+      <if test="erpcode != null">
+        ERPCODE = #{erpcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where HYKTYPE = #{hyktype,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.MEM_TYPEDEF">
+    update MEM_TYPEDEF
+    set TYPENAME = #{typename,jdbcType=VARCHAR},
+      FLAG_CASHCARD = #{flagCashcard,jdbcType=DECIMAL},
+      FLAG_VOUCHER = #{flagVoucher,jdbcType=DECIMAL},
+      FLAG_CENT = #{flagCent,jdbcType=DECIMAL},
+      ERPCODE = #{erpcode,jdbcType=VARCHAR}
+    where HYKTYPE = #{hyktype,jdbcType=DECIMAL}
+  </update>
+ 
+</mapper>

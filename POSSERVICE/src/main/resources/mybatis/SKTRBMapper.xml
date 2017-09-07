@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.SKTRBMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.SKTRB">
+    <id column="SKTNO" jdbcType="VARCHAR" property="sktno" />
+    <id column="RQ" jdbcType="TIMESTAMP" property="rq" />
+    <id column="LX" jdbcType="DECIMAL" property="lx" />
+    <id column="SKFSID" jdbcType="DECIMAL" property="skfsid" />
+    <result column="SKFSNAME" jdbcType="VARCHAR" property="skfsname" />
+    <result column="XSJE" jdbcType="DECIMAL" property="xsje" />
+    <result column="XSBS" jdbcType="DECIMAL" property="xsbs" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SKTNO, RQ, LX, SKFSID, SKFSNAME, XSJE, XSBS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="xb.posservice.dao.vo.SKTRBKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SKTRB
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and LX = #{lx,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.SKTRBKey">
+    delete from SKTRB
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and RQ = #{rq,jdbcType=TIMESTAMP}
+      and LX = #{lx,jdbcType=DECIMAL}
+      and SKFSID = #{skfsid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.SKTRB">
+    insert into SKTRB (SKTNO, RQ, LX, 
+      SKFSID, SKFSNAME, XSJE, 
+      XSBS)
+    values (#{sktno,jdbcType=VARCHAR}, #{rq,jdbcType=TIMESTAMP}, #{lx,jdbcType=DECIMAL}, 
+      #{skfsid,jdbcType=DECIMAL}, #{skfsname,jdbcType=VARCHAR}, #{xsje,jdbcType=DECIMAL}, 
+      #{xsbs,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.SKTRB">
+    insert into SKTRB
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        SKTNO,
+      </if>
+      <if test="rq != null">
+        RQ,
+      </if>
+      <if test="lx != null">
+        LX,
+      </if>
+      <if test="skfsid != null">
+        SKFSID,
+      </if>
+      <if test="skfsname != null">
+        SKFSNAME,
+      </if>
+      <if test="xsje != null">
+        XSJE,
+      </if>
+      <if test="xsbs != null">
+        XSBS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        #{sktno,jdbcType=VARCHAR},
+      </if>
+      <if test="rq != null">
+        #{rq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lx != null">
+        #{lx,jdbcType=DECIMAL},
+      </if>
+      <if test="skfsid != null">
+        #{skfsid,jdbcType=DECIMAL},
+      </if>
+      <if test="skfsname != null">
+        #{skfsname,jdbcType=VARCHAR},
+      </if>
+      <if test="xsje != null">
+        #{xsje,jdbcType=DECIMAL},
+      </if>
+      <if test="xsbs != null">
+        #{xsbs,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.SKTRB">
+    update SKTRB
+    <set>
+      <if test="skfsname != null">
+        SKFSNAME = #{skfsname,jdbcType=VARCHAR},
+      </if>
+      <if test="xsje != null">
+        XSJE = #{xsje,jdbcType=DECIMAL},
+      </if>
+      <if test="xsbs != null">
+        XSBS = #{xsbs,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and RQ = #{rq,jdbcType=TIMESTAMP}
+      and LX = #{lx,jdbcType=DECIMAL}
+      and SKFSID = #{skfsid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.SKTRB">
+    update SKTRB
+    set SKFSNAME = #{skfsname,jdbcType=VARCHAR},
+      XSJE = #{xsje,jdbcType=DECIMAL},
+      XSBS = #{xsbs,jdbcType=DECIMAL}
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and RQ = #{rq,jdbcType=TIMESTAMP}
+      and LX = #{lx,jdbcType=DECIMAL}
+      and SKFSID = #{skfsid,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>

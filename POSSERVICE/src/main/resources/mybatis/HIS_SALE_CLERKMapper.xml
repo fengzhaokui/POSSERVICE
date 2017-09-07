@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.HIS_SALE_CLERKMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.HIS_SALE_CLERK">
+    <id column="SKTNO" jdbcType="VARCHAR" property="sktno" />
+    <id column="JLBH" jdbcType="DECIMAL" property="jlbh" />
+    <id column="TCKT_INX" jdbcType="DECIMAL" property="tcktInx" />
+    <result column="YYY" jdbcType="DECIMAL" property="yyy" />
+    <result column="DEPTID" jdbcType="DECIMAL" property="deptid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SKTNO, JLBH, TCKT_INX, YYY, DEPTID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="xb.posservice.dao.vo.HIS_SALE_CLERKKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HIS_SALE_CLERK
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and TCKT_INX = #{tcktInx,jdbcType=DECIMAL}
+  </select>
+   <select id="selectByskt" parameterType="xb.posservice.dao.vo.SALE_CLERKKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HIS_SALE_CLERK
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.HIS_SALE_CLERKKey">
+    delete from HIS_SALE_CLERK
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and TCKT_INX = #{tcktInx,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.HIS_SALE_CLERK">
+    insert into HIS_SALE_CLERK (SKTNO, JLBH, TCKT_INX, 
+      YYY, DEPTID)
+    values (#{sktno,jdbcType=VARCHAR}, #{jlbh,jdbcType=DECIMAL}, #{tcktInx,jdbcType=DECIMAL}, 
+      #{yyy,jdbcType=DECIMAL}, #{deptid,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.HIS_SALE_CLERK">
+    insert into HIS_SALE_CLERK
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        SKTNO,
+      </if>
+      <if test="jlbh != null">
+        JLBH,
+      </if>
+      <if test="tcktInx != null">
+        TCKT_INX,
+      </if>
+      <if test="yyy != null">
+        YYY,
+      </if>
+      <if test="deptid != null">
+        DEPTID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sktno != null">
+        #{sktno,jdbcType=VARCHAR},
+      </if>
+      <if test="jlbh != null">
+        #{jlbh,jdbcType=DECIMAL},
+      </if>
+      <if test="tcktInx != null">
+        #{tcktInx,jdbcType=DECIMAL},
+      </if>
+      <if test="yyy != null">
+        #{yyy,jdbcType=DECIMAL},
+      </if>
+      <if test="deptid != null">
+        #{deptid,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.HIS_SALE_CLERK">
+    update HIS_SALE_CLERK
+    <set>
+      <if test="yyy != null">
+        YYY = #{yyy,jdbcType=DECIMAL},
+      </if>
+      <if test="deptid != null">
+        DEPTID = #{deptid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and TCKT_INX = #{tcktInx,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.HIS_SALE_CLERK">
+    update HIS_SALE_CLERK
+    set YYY = #{yyy,jdbcType=DECIMAL},
+      DEPTID = #{deptid,jdbcType=DECIMAL}
+    where SKTNO = #{sktno,jdbcType=VARCHAR}
+      and JLBH = #{jlbh,jdbcType=DECIMAL}
+      and TCKT_INX = #{tcktInx,jdbcType=DECIMAL}
+  </update>
+ 
+ 
+</mapper>
