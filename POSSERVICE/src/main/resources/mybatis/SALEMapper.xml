@@ -27,9 +27,11 @@
 		<result column="SHOPID" jdbcType="DECIMAL" property="shopid" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		SKTNO, JLBH, JYSJ, JZRQ, SKY, THFHR, VIPTYPE, GLKKH, ZLJE, XSJE, VIPID,
+		SKTNO, JLBH, JYSJ, JZRQ, SKY, THFHR, VIPTYPE, GLKKH, ZLJE,
+		XSJE, VIPID,
 		XFJLID, SKTNO_OLD,
-		JLBH_OLD, JF, DKJF, SJHM, CARDNO, STATUS, BJ_OFFLINE, SYJF, BACKREASON, SHOPID
+		JLBH_OLD, JF, DKJF, SJHM, CARDNO,
+		STATUS, BJ_OFFLINE, SYJF, BACKREASON, SHOPID
 	</sql>
 	<select id="selectByPrimaryKey" parameterType="xb.posservice.dao.vo.SALEKey"
 		resultMap="BaseResultMap">
@@ -37,46 +39,75 @@
 		<include refid="Base_Column_List" />
 		from SALE
 		where SKTNO = #{sktno,jdbcType=VARCHAR}
-		and JLBH = #{jlbh,jdbcType=DECIMAL}
-		 <if test="status != null">
-    AND STATUS = #{status}
-  </if>
+		and JLBH =
+		#{jlbh,jdbcType=DECIMAL}
+		<if test="statuslist!=null">
+			<if test="statuslist.size>0">
+				AND STATUS in
+				<foreach collection="statuslist" item="stu" open="("
+					separator="," close=")">
+					#{stu}
+				</foreach>
+			</if>
+		</if>
+	</select>
+	<select id="selectByPrimaryKeyold" parameterType="xb.posservice.dao.vo.SALEKey"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SALE
+		where SKTNO = #{sktno,jdbcType=VARCHAR}
+		and JLBH =
+		#{jlbh,jdbcType=DECIMAL}
+		<if test="status != null">
+			AND STATUS = #{status}
+		</if>
 	</select>
 	<select id="selectMaxJlbh" parameterType="java.lang.String"
 		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from SALE
-		where SKTNO = #{sktno,jdbcType=VARCHAR} and STATUS>0 AND ROWNUM=1
+		where SKTNO = #{sktno,jdbcType=VARCHAR} and STATUS>0 AND
+		ROWNUM=1
 		order by jlbh desc
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.SALEKey">
 		delete from SALE
 		where SKTNO = #{sktno,jdbcType=VARCHAR}
-		and JLBH = #{jlbh,jdbcType=DECIMAL}
+		and JLBH =
+		#{jlbh,jdbcType=DECIMAL}
 	</delete>
 	<insert id="insert" parameterType="xb.posservice.dao.vo.SALE">
-		insert into SALE (SKTNO, JLBH, JYSJ,
+		insert into SALE (SKTNO, JLBH,
+		JYSJ,
 		JZRQ, SKY, THFHR,
 		VIPTYPE, GLKKH, ZLJE,
 		XSJE, VIPID, XFJLID,
 		SKTNO_OLD, JLBH_OLD, JF,
 		DKJF, SJHM, CARDNO, STATUS,
-		BJ_OFFLINE, SYJF, BACKREASON,
+		BJ_OFFLINE, SYJF,
+		BACKREASON,
 		SHOPID, SIEBELID, BJ_UPLOAD
 		)
-		values (#{sktno,jdbcType=VARCHAR}, #{jlbh,jdbcType=DECIMAL},
+		values
+		(#{sktno,jdbcType=VARCHAR}, #{jlbh,jdbcType=DECIMAL},
 		#{jysj,jdbcType=TIMESTAMP},
-		#{jzrq,jdbcType=TIMESTAMP}, #{sky,jdbcType=DECIMAL}, #{thfhr,jdbcType=DECIMAL},
+		#{jzrq,jdbcType=TIMESTAMP},
+		#{sky,jdbcType=DECIMAL}, #{thfhr,jdbcType=DECIMAL},
 		#{viptype,jdbcType=DECIMAL}, #{glkkh,jdbcType=VARCHAR},
 		#{zlje,jdbcType=DECIMAL},
-		#{xsje,jdbcType=DECIMAL}, #{vipid,jdbcType=DECIMAL}, #{xfjlid,jdbcType=DECIMAL},
+		#{xsje,jdbcType=DECIMAL},
+		#{vipid,jdbcType=DECIMAL}, #{xfjlid,jdbcType=DECIMAL},
 		#{sktnoOld,jdbcType=VARCHAR}, #{jlbhOld,jdbcType=DECIMAL},
 		#{jf,jdbcType=FLOAT},
-		#{dkjf,jdbcType=FLOAT}, #{sjhm,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR},
+		#{dkjf,jdbcType=FLOAT}, #{sjhm,jdbcType=VARCHAR},
+		#{cardno,jdbcType=VARCHAR},
 		#{status,jdbcType=DECIMAL},
-		#{bjOffline,jdbcType=DECIMAL}, #{syjf,jdbcType=FLOAT}, #{backreason,jdbcType=DECIMAL},
-		#{shopid,jdbcType=DECIMAL}, #{siebelid,jdbcType=VARCHAR},
+		#{bjOffline,jdbcType=DECIMAL}, #{syjf,jdbcType=FLOAT},
+		#{backreason,jdbcType=DECIMAL},
+		#{shopid,jdbcType=DECIMAL},
+		#{siebelid,jdbcType=VARCHAR},
 		#{bjUpload,jdbcType=DECIMAL})
 	</insert>
 	<insert id="insertSelective" parameterType="xb.posservice.dao.vo.SALE">
@@ -157,7 +188,7 @@
 			<if test="bjUpload != null">
 				BJ_UPLOAD,
 			</if>
-			
+
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="sktno != null">
@@ -235,7 +266,7 @@
 			<if test="bjUpload != null">
 				#{bjUpload,jdbcType=DECIMAL},
 			</if>
-			
+
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.SALE">
@@ -310,38 +341,48 @@
 			<if test="bjUpload != null">
 				BJ_UPLOAD = #{bjUpload,jdbcType=DECIMAL},
 			</if>
-			
+
 		</set>
 		where SKTNO = #{sktno,jdbcType=VARCHAR}
-		and JLBH = #{jlbh,jdbcType=DECIMAL}
+		and JLBH =
+		#{jlbh,jdbcType=DECIMAL}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.SALE">
 		update SALE
-		set JYSJ = #{jysj,jdbcType=TIMESTAMP},
+		set
+		JYSJ = #{jysj,jdbcType=TIMESTAMP},
 		JZRQ = #{jzrq,jdbcType=TIMESTAMP},
 		SKY = #{sky,jdbcType=DECIMAL},
 		THFHR = #{thfhr,jdbcType=DECIMAL},
 		VIPTYPE = #{viptype,jdbcType=DECIMAL},
-		GLKKH = #{glkkh,jdbcType=VARCHAR},
+		GLKKH =
+		#{glkkh,jdbcType=VARCHAR},
 		ZLJE = #{zlje,jdbcType=DECIMAL},
-		XSJE = #{xsje,jdbcType=DECIMAL},
+		XSJE =
+		#{xsje,jdbcType=DECIMAL},
 		VIPID = #{vipid,jdbcType=DECIMAL},
-		XFJLID = #{xfjlid,jdbcType=DECIMAL},
+		XFJLID =
+		#{xfjlid,jdbcType=DECIMAL},
 		SKTNO_OLD = #{sktnoOld,jdbcType=VARCHAR},
 		JLBH_OLD = #{jlbhOld,jdbcType=DECIMAL},
 		JF = #{jf,jdbcType=FLOAT},
-		DKJF = #{dkjf,jdbcType=FLOAT},
+		DKJF
+		= #{dkjf,jdbcType=FLOAT},
 		SJHM = #{sjhm,jdbcType=VARCHAR},
-		CARDNO = #{cardno,jdbcType=VARCHAR},
+		CARDNO =
+		#{cardno,jdbcType=VARCHAR},
 		STATUS = #{status,jdbcType=DECIMAL},
 		BJ_OFFLINE = #{bjOffline,jdbcType=DECIMAL},
-		SYJF = #{syjf,jdbcType=FLOAT},
+		SYJF =
+		#{syjf,jdbcType=FLOAT},
 		BACKREASON = #{backreason,jdbcType=DECIMAL},
 		SHOPID = #{shopid,jdbcType=DECIMAL},
-		SIEBELID = #{siebelid,jdbcType=VARCHAR},
+		SIEBELID =
+		#{siebelid,jdbcType=VARCHAR},
 		BJ_UPLOAD = #{bjUpload,jdbcType=DECIMAL}
 		where SKTNO = #{sktno,jdbcType=VARCHAR}
-		and JLBH = #{jlbh,jdbcType=DECIMAL}
+		and JLBH =
+		#{jlbh,jdbcType=DECIMAL}
 	</update>
 
 </mapper>

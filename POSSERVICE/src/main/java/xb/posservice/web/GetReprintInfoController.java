@@ -41,7 +41,9 @@ import xb.posservice.dao.vo.SALE_PAYMENTSKey;
 import xb.posservice.dao.vo.SALE_THIRDPAY;
 import xb.posservice.dao.vo.SALE_THIRDPAYKey;
 import xb.posservice.dao.vo.SALE_YQ;
+import xb.posservice.dao.vo.SHOPDEF;
 import xb.posservice.dao.vo.SKFS;
+import xb.posservice.dao.vo.SKT;
 import xb.posservice.service.FengService;
 import xb.posservice.service.GoodsService;
 import xb.posservice.service.HisSaleBankdetailService;
@@ -62,7 +64,9 @@ import xb.posservice.service.SaleService;
 import xb.posservice.service.SaleThirdpayService;
 import xb.posservice.service.SalefqService;
 import xb.posservice.service.SaleyqService;
+import xb.posservice.service.ShopService;
 import xb.posservice.service.SkfsService;
+import xb.posservice.service.SktService;
 import xb.posservice.util.CommonUtils;
 import xb.posservice.util.JsonUtils;
 import xb.posservice.vo.GOODSTYPE;
@@ -138,11 +142,46 @@ public class GetReprintInfoController {
 	@Autowired
 	@Qualifier("SkfsServiceImpl")
 	private SkfsService skfsService;
+	@Autowired
+	@Qualifier("ShopServiceImpl")
+	private ShopService shopService;
+	@Autowired
+	@Qualifier("SktServiceImpl")
+	private SktService sktService;
 
-	//
-	// @Autowired
-	// @Qualifier("SaleServiceImpl")
-	// private SaledetailService saledetailService;
+	// 获取原单数据；
+	@RequestMapping(value = "/getoldticket", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResultData GetOldTicket(@RequestParam(value = "token", required = false) String token,
+			@RequestParam(value = "posno", required = false) String posno,
+			@RequestParam(value = "newposno", required = false) String newposno,
+			@RequestParam(value = "billid", required = false) String billid) throws Exception {
+		ResultData result = new ResultData();
+		if (CommonUtils.Isnullstr(posno) || CommonUtils.Isnullstr(newposno) || CommonUtils.Isnullstr(billid)) {
+			result.setRetmsg("参数不可为空");
+			return result;
+		}
+		SKT oldskt = sktService.selectByPrimaryKey(posno);
+		SKT newskt = sktService.selectByPrimaryKey(newposno);
+		if (oldskt.getShopid() != newskt.getShopid()) {
+			result.setRetmsg("不允许退非本店铺订单");
+			return result;
+		}
+		SALEKey salekey = new SALEKey();
+		salekey.setJlbh(Long.valueOf(billid));
+		salekey.setSktno(posno);
+		salekey.setThfhr(1l);//已经退货的不能再次获取
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(9);
+		salekey.setStatuslist(list);
+		HIS_SALE sale = hissaleService.selectByPrimaryKey(salekey);
+		if (sale != null)
+			result.setData(sale);
+		result.setRetcode("00");
+		return result;
+	}
+
 	// 交易补打
 	@RequestMapping(value = "/getreprintinfo", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
@@ -157,14 +196,17 @@ public class GetReprintInfoController {
 		SALEKey salekey = new SALEKey();
 		salekey.setJlbh(Long.valueOf(billid));
 		salekey.setSktno(posno);
-		salekey.setStatus(1);
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(9);
+		salekey.setStatuslist(list);
+		//salekey.setStatus(1);
 		SALE sale = saleService.selectByPrimaryKey(salekey);
 		if (sale == null) {
-			 if (sale == null)
-             {
-                 result = GetHisReprintInfo(posno,billid);//历史订单
-                 return result;
-             }
+			if (sale == null) {
+				result = GetHisReprintInfo(posno, billid);// 历史订单
+				return result;
+			}
 		}
 		OutOldTicket oot = new OutOldTicket();
 		OutOldTicketInfo ooti = new OutOldTicketInfo();
@@ -342,7 +384,8 @@ public class GetReprintInfoController {
 
 		return result;
 	}
-//历史数据
+
+	// 历史数据
 	public ResultData GetHisReprintInfo(String posno, String billid) {
 		ResultData result = new ResultData();
 		if (CommonUtils.Isnullstr(posno) || CommonUtils.Isnullstr(billid)) {
@@ -352,7 +395,11 @@ public class GetReprintInfoController {
 		SALEKey salekey = new SALEKey();
 		salekey.setJlbh(Long.valueOf(billid));
 		salekey.setSktno(posno);
-		salekey.setStatus(1);
+		//salekey.setStatus(1);
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(9);
+		salekey.setStatuslist(list);
 		HIS_SALE sale = hissaleService.selectByPrimaryKey(salekey);
 		if (sale == null) {
 			result.setRetmsg("该订单不存在");
@@ -534,4 +581,5 @@ public class GetReprintInfoController {
 
 		return result;
 	}
+
 }

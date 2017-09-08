@@ -1,12 +1,15 @@
 package xb.posservice.dao.vo;
 
+import java.util.List;
+
 public class SALEKey {
     private String sktno;
 
     private Long jlbh;
     
     private Integer status;
-
+    private List<Integer> statuslist;
+    private Long thfhr;
     public String getSktno() {
         return sktno;
     }
@@ -29,5 +32,21 @@ public class SALEKey {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public List<Integer> getStatuslist() {
+		return statuslist;
+	}
+
+	public void setStatuslist(List<Integer> statuslist) {
+		this.statuslist = statuslist;
+	}
+
+	public Long getThfhr() {
+		return thfhr;
+	}
+
+	public void setThfhr(Long thfhr) {
+		this.thfhr = thfhr;
 	}
 }

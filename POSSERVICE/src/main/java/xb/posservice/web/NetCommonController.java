@@ -87,21 +87,21 @@ public class NetCommonController {
 //			String apiresult = apiService.sendRequest("getreprintinfo", paramMap);
 //			return apiresult;
 //		}
-		//获取原单数据；
-		@RequestMapping(value = "/getoldticket", method = RequestMethod.POST, produces = "application/json")
-		@ResponseBody
-		public String GetOldTicket(@RequestParam(value="token", required=false) String token, @RequestParam(value="posno", required=false) String posno, @RequestParam(value="newposno", required=false) String newposno
-				, @RequestParam(value="billid", required=false) String billid)throws Exception {
-
-			Map<String, String> paramMap = new HashMap<String, String>();
-
-			paramMap.put("token", token);
-			paramMap.put("posno", posno);
-			paramMap.put("newposno", newposno);
-			paramMap.put("billid", billid);
-			logger.info(JsonUtils.hashMap2Json(paramMap));
-			String apiresult = apiService.sendRequest("getoldticket", paramMap);
-			return apiresult;
-		}
+//		//获取原单数据；
+//		@RequestMapping(value = "/getoldticket", method = RequestMethod.POST, produces = "application/json")
+//		@ResponseBody
+//		public String GetOldTicket(@RequestParam(value="token", required=false) String token, @RequestParam(value="posno", required=false) String posno, @RequestParam(value="newposno", required=false) String newposno
+//				, @RequestParam(value="billid", required=false) String billid)throws Exception {
+//
+//			Map<String, String> paramMap = new HashMap<String, String>();
+//
+//			paramMap.put("token", token);
+//			paramMap.put("posno", posno);
+//			paramMap.put("newposno", newposno);
+//			paramMap.put("billid", billid);
+//			logger.info(JsonUtils.hashMap2Json(paramMap));
+//			String apiresult = apiService.sendRequest("getoldticket", paramMap);
+//			return apiresult;
+//		}
 
 }
