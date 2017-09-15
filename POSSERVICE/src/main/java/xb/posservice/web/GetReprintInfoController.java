@@ -163,21 +163,34 @@ public class GetReprintInfoController {
 		}
 		SKT oldskt = sktService.selectByPrimaryKey(posno);
 		SKT newskt = sktService.selectByPrimaryKey(newposno);
-		if (oldskt.getShopid() != newskt.getShopid()) {
+		if (!oldskt.getShopid().equals(newskt.getShopid())) {
 			result.setRetmsg("不允许退非本店铺订单");
 			return result;
 		}
 		SALEKey salekey = new SALEKey();
 		salekey.setJlbh(Long.valueOf(billid));
 		salekey.setSktno(posno);
-		salekey.setThfhr(1l);//已经退货的不能再次获取
+		salekey.setThfhr(1l);// 已经退货的不能再次获取
 		List<Integer> list = new ArrayList<Integer>();
 		list.add(1);
 		list.add(9);
 		salekey.setStatuslist(list);
-		HIS_SALE sale = hissaleService.selectByPrimaryKey(salekey);
+		SALE sale = saleService.selectByPrimaryKey(salekey);
+		//HIS_SALE sale = hissaleService.selectByPrimaryKey(salekey);
 		if (sale != null)
-			result.setData(sale);
+		{
+			result = GetReprintInfo(sale);
+		}
+		else
+		{
+			HIS_SALE hissale = hissaleService.selectByPrimaryKey(salekey);
+			if (sale == null) {
+				result.setRetmsg("该订单不存在");
+				return result;
+			}
+			result = GetHisReprintInfo(hissale);
+		}
+			//result.setData(sale);
 		result.setRetcode("00");
 		return result;
 	}
@@ -200,7 +213,6 @@ public class GetReprintInfoController {
 		list.add(1);
 		list.add(9);
 		salekey.setStatuslist(list);
-		//salekey.setStatus(1);
 		SALE sale = saleService.selectByPrimaryKey(salekey);
 		if (sale == null) {
 			if (sale == null) {
@@ -208,6 +220,17 @@ public class GetReprintInfoController {
 				return result;
 			}
 		}
+		
+		result = GetReprintInfo(sale);
+		return result;
+	}
+
+	/// 获取订单信息
+	public ResultData GetReprintInfo(SALE sale) {
+		SALEKey salekey = new SALEKey();
+		salekey.setJlbh(sale.getJlbh());
+		salekey.setSktno(sale.getSktno());
+		ResultData result = new ResultData();
 		OutOldTicket oot = new OutOldTicket();
 		OutOldTicketInfo ooti = new OutOldTicketInfo();
 		oot.billInfo = ooti;
@@ -381,30 +404,15 @@ public class GetReprintInfoController {
 
 		result.setRetcode("00");
 		result.setData(oot);
-
 		return result;
 	}
 
-	// 历史数据
-	public ResultData GetHisReprintInfo(String posno, String billid) {
-		ResultData result = new ResultData();
-		if (CommonUtils.Isnullstr(posno) || CommonUtils.Isnullstr(billid)) {
-			result.setRetmsg("参数错误");
-			return result;
-		}
+	/// 获取历史订单详细信息
+	public ResultData GetHisReprintInfo(HIS_SALE sale) {
 		SALEKey salekey = new SALEKey();
-		salekey.setJlbh(Long.valueOf(billid));
-		salekey.setSktno(posno);
-		//salekey.setStatus(1);
-		List<Integer> list = new ArrayList<Integer>();
-		list.add(1);
-		list.add(9);
-		salekey.setStatuslist(list);
-		HIS_SALE sale = hissaleService.selectByPrimaryKey(salekey);
-		if (sale == null) {
-			result.setRetmsg("该订单不存在");
-			return result;
-		}
+		salekey.setJlbh(sale.getJlbh());
+		salekey.setSktno(sale.getSktno());
+		ResultData result = new ResultData();
 		OutOldTicket oot = new OutOldTicket();
 		OutOldTicketInfo ooti = new OutOldTicketInfo();
 		oot.billInfo = ooti;
@@ -451,8 +459,8 @@ public class GetReprintInfoController {
 			ooti.cashierName = personinfo.getPersonName();
 		}
 		SALE_CLERKKey clerkkey = new SALE_CLERKKey();
-		clerkkey.setSktno(salekey.getSktno());
-		clerkkey.setJlbh(salekey.getJlbh());
+		clerkkey.setSktno(sale.getSktno());
+		clerkkey.setJlbh(sale.getJlbh());
 		List<HIS_SALE_CLERK> clerks = hissaleclerkService.selectByskt(clerkkey);
 		if (clerks.size() > 0) {
 			ooti.saleman = clerks.get(0).getYyy().toString();
@@ -579,6 +587,29 @@ public class GetReprintInfoController {
 		result.setRetcode("00");
 		result.setData(oot);
 
+		return result;
+	}
+
+	// 历史数据
+	public ResultData GetHisReprintInfo(String posno, String billid) {
+		ResultData result = new ResultData();
+		if (CommonUtils.Isnullstr(posno) || CommonUtils.Isnullstr(billid)) {
+			result.setRetmsg("参数错误");
+			return result;
+		}
+		SALEKey salekey = new SALEKey();
+		salekey.setJlbh(Long.valueOf(billid));
+		salekey.setSktno(posno);
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(9);
+		salekey.setStatuslist(list);
+		HIS_SALE sale = hissaleService.selectByPrimaryKey(salekey);
+		if (sale == null) {
+			result.setRetmsg("该订单不存在");
+			return result;
+		}
+		result = GetHisReprintInfo(sale);
 		return result;
 	}
 

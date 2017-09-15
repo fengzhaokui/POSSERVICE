@@ -39,8 +39,10 @@
 		<include refid="Base_Column_List" />
 		from SALE
 		where SKTNO = #{sktno,jdbcType=VARCHAR}
-		and JLBH =
-		#{jlbh,jdbcType=DECIMAL}
+		and JLBH =	#{jlbh,jdbcType=DECIMAL}
+		<if test="thfhr != null">
+			AND THFHR IS null
+		</if>
 		<if test="statuslist!=null">
 			<if test="statuslist.size>0">
 				AND STATUS in
@@ -51,6 +53,7 @@
 			</if>
 		</if>
 	</select>
+	
 	<select id="selectByPrimaryKeyold" parameterType="xb.posservice.dao.vo.SALEKey"
 		resultMap="BaseResultMap">
 		select
