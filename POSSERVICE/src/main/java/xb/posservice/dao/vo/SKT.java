@@ -25,8 +25,6 @@ public class SKT {
 
     private Short canBar;
 
-    private Long csmcdm;
-
     private Integer xsddid;
 
     private String machinecode;
@@ -54,7 +52,7 @@ public class SKT {
 
     private Integer bjTyzf;
 
-
+	private Integer mdid;
     private Integer dyfa;
 
     public String getSktno() {
@@ -145,13 +143,7 @@ public class SKT {
         this.canBar = canBar;
     }
 
-    public Long getCsmcdm() {
-        return csmcdm;
-    }
-
-    public void setCsmcdm(Long csmcdm) {
-        this.csmcdm = csmcdm;
-    }
+    
 
     public Integer getXsddid() {
         return xsddid;
@@ -273,5 +265,13 @@ public class SKT {
 
 	public void setThirdpaypwd(String thirdpaypwd) {
 		this.thirdpaypwd = thirdpaypwd;
+	}
+
+	public Integer getMdid() {
+		return mdid;
+	}
+
+	public void setMdid(Integer mdid) {
+		this.mdid = mdid;
 	}
 }

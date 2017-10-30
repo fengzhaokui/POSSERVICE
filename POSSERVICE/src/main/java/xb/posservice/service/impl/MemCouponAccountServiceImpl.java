@@ -17,8 +17,6 @@ public class MemCouponAccountServiceImpl implements MemCouponAccountService{
 	@Autowired
 	MEM_COUPON_ACCOUNTMapper couponMapper;
 	
-	
-
 	public MEM_COUPON_ACCOUNT selectBycode(String code) {
 		// TODO Auto-generated method stub
 		return couponMapper.selectBycode(code);

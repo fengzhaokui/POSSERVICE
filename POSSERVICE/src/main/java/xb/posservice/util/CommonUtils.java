@@ -1,5 +1,6 @@
 package xb.posservice.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,7 +33,25 @@ public class CommonUtils {
         else
             return "";
     }
-	
+	public static Date GetDate() throws ParseException
+	{
+		Date currentTime = new Date();  
+	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+	    String dateString = formatter.format(currentTime);
+		String pattern="yyyy-MM-dd";
+        return new SimpleDateFormat(pattern).parse(dateString); 
+        
+	}
+	/** 
+     * 使用参数Format将字符串转为Date 
+	 * @throws ParseException 
+     */  
+    public static Date GetDate(String strDate, String pattern) throws ParseException  
+    {  
+    	if(Isnullstr(pattern))
+    		pattern="yyyy-MM-dd HH:mm:ss";
+        return new SimpleDateFormat(pattern).parse(strDate);  
+    }
 	public static String getNowDate() {  
 		 Date currentTime = new Date();  
 		    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
