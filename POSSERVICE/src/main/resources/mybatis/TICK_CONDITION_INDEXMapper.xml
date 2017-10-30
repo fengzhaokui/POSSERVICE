@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.TICK_CONDITION_INDEXMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.TICK_CONDITION_INDEX">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <id column="CONDITIONID" jdbcType="DECIMAL" property="conditionid" />
+    <id column="TICKTYPE" jdbcType="DECIMAL" property="ticktype" />
+    <result column="YXJ" jdbcType="DECIMAL" property="yxj" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CONDITIONID, TICKTYPE, YXJ
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="xb.posservice.dao.vo.TICK_CONDITION_INDEXKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TICK_CONDITION_INDEX
+    where ID = #{id,jdbcType=DECIMAL}
+      and CONDITIONID = #{conditionid,jdbcType=DECIMAL}
+      and TICKTYPE = #{ticktype,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.TICK_CONDITION_INDEXKey">
+    delete from TICK_CONDITION_INDEX
+    where ID = #{id,jdbcType=DECIMAL}
+      and CONDITIONID = #{conditionid,jdbcType=DECIMAL}
+      and TICKTYPE = #{ticktype,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.TICK_CONDITION_INDEX">
+    insert into TICK_CONDITION_INDEX (ID, CONDITIONID, TICKTYPE, 
+      YXJ)
+    values (#{id,jdbcType=DECIMAL}, #{conditionid,jdbcType=DECIMAL}, #{ticktype,jdbcType=DECIMAL}, 
+      #{yxj,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.TICK_CONDITION_INDEX">
+    insert into TICK_CONDITION_INDEX
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="conditionid != null">
+        CONDITIONID,
+      </if>
+      <if test="ticktype != null">
+        TICKTYPE,
+      </if>
+      <if test="yxj != null">
+        YXJ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="conditionid != null">
+        #{conditionid,jdbcType=DECIMAL},
+      </if>
+      <if test="ticktype != null">
+        #{ticktype,jdbcType=DECIMAL},
+      </if>
+      <if test="yxj != null">
+        #{yxj,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.TICK_CONDITION_INDEX">
+    update TICK_CONDITION_INDEX
+    <set>
+      <if test="yxj != null">
+        YXJ = #{yxj,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+      and CONDITIONID = #{conditionid,jdbcType=DECIMAL}
+      and TICKTYPE = #{ticktype,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.TICK_CONDITION_INDEX">
+    update TICK_CONDITION_INDEX
+    set YXJ = #{yxj,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+      and CONDITIONID = #{conditionid,jdbcType=DECIMAL}
+      and TICKTYPE = #{ticktype,jdbcType=DECIMAL}
+  </update>
+ 
+ 
+</mapper>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.TICK_BASICMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.TICK_BASIC">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <id column="TICKTYPE" jdbcType="DECIMAL" property="ticktype" />
+    <result column="PAPERWIDTH" jdbcType="DECIMAL" property="paperwidth" />
+    <result column="TOPMARGIN" jdbcType="DECIMAL" property="topmargin" />
+    <result column="BOTTOMMARGIN" jdbcType="DECIMAL" property="bottommargin" />
+    <result column="LEFTMARGIN" jdbcType="DECIMAL" property="leftmargin" />
+    <result column="RIGHTMARGIN" jdbcType="DECIMAL" property="rightmargin" />
+    <result column="ROWSPACE" jdbcType="DECIMAL" property="rowspace" />
+    <result column="LINEFORMAT" jdbcType="VARCHAR" property="lineformat" />
+    <result column="DATEFORMAT" jdbcType="VARCHAR" property="dateformat" />
+    <result column="TIMEFORMAT" jdbcType="VARCHAR" property="timeformat" />
+    <result column="WEBSITE" jdbcType="VARCHAR" property="website" />
+    <result column="HOTLINE" jdbcType="VARCHAR" property="hotline" />
+    <result column="ALIGNMENT" jdbcType="DECIMAL" property="alignment" />
+    <result column="CUTWAY" jdbcType="DECIMAL" property="cutway" />
+    <result column="LINEFORMAT_AGAIN" jdbcType="VARCHAR" property="lineformatAgain" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TICKTYPE, PAPERWIDTH, TOPMARGIN, BOTTOMMARGIN, LEFTMARGIN, RIGHTMARGIN, ROWSPACE, 
+    LINEFORMAT, DATEFORMAT, TIMEFORMAT, WEBSITE, HOTLINE, ALIGNMENT, CUTWAY, LINEFORMAT_AGAIN
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="xb.posservice.dao.vo.TICK_BASICKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TICK_BASIC
+    where ID = #{id,jdbcType=DECIMAL}
+      and TICKTYPE = #{ticktype,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="xb.posservice.dao.vo.TICK_BASICKey">
+    delete from TICK_BASIC
+    where ID = #{id,jdbcType=DECIMAL}
+      and TICKTYPE = #{ticktype,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.TICK_BASIC">
+    insert into TICK_BASIC (ID, TICKTYPE, PAPERWIDTH, 
+      TOPMARGIN, BOTTOMMARGIN, LEFTMARGIN, 
+      RIGHTMARGIN, ROWSPACE, LINEFORMAT, 
+      DATEFORMAT, TIMEFORMAT, WEBSITE, 
+      HOTLINE, ALIGNMENT, CUTWAY, 
+      LINEFORMAT_AGAIN)
+    values (#{id,jdbcType=DECIMAL}, #{ticktype,jdbcType=DECIMAL}, #{paperwidth,jdbcType=DECIMAL}, 
+      #{topmargin,jdbcType=DECIMAL}, #{bottommargin,jdbcType=DECIMAL}, #{leftmargin,jdbcType=DECIMAL}, 
+      #{rightmargin,jdbcType=DECIMAL}, #{rowspace,jdbcType=DECIMAL}, #{lineformat,jdbcType=VARCHAR}, 
+      #{dateformat,jdbcType=VARCHAR}, #{timeformat,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
+      #{hotline,jdbcType=VARCHAR}, #{alignment,jdbcType=DECIMAL}, #{cutway,jdbcType=DECIMAL}, 
+      #{lineformatAgain,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.TICK_BASIC">
+    insert into TICK_BASIC
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="ticktype != null">
+        TICKTYPE,
+      </if>
+      <if test="paperwidth != null">
+        PAPERWIDTH,
+      </if>
+      <if test="topmargin != null">
+        TOPMARGIN,
+      </if>
+      <if test="bottommargin != null">
+        BOTTOMMARGIN,
+      </if>
+      <if test="leftmargin != null">
+        LEFTMARGIN,
+      </if>
+      <if test="rightmargin != null">
+        RIGHTMARGIN,
+      </if>
+      <if test="rowspace != null">
+        ROWSPACE,
+      </if>
+      <if test="lineformat != null">
+        LINEFORMAT,
+      </if>
+      <if test="dateformat != null">
+        DATEFORMAT,
+      </if>
+      <if test="timeformat != null">
+        TIMEFORMAT,
+      </if>
+      <if test="website != null">
+        WEBSITE,
+      </if>
+      <if test="hotline != null">
+        HOTLINE,
+      </if>
+      <if test="alignment != null">
+        ALIGNMENT,
+      </if>
+      <if test="cutway != null">
+        CUTWAY,
+      </if>
+      <if test="lineformatAgain != null">
+        LINEFORMAT_AGAIN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="ticktype != null">
+        #{ticktype,jdbcType=DECIMAL},
+      </if>
+      <if test="paperwidth != null">
+        #{paperwidth,jdbcType=DECIMAL},
+      </if>
+      <if test="topmargin != null">
+        #{topmargin,jdbcType=DECIMAL},
+      </if>
+      <if test="bottommargin != null">
+        #{bottommargin,jdbcType=DECIMAL},
+      </if>
+      <if test="leftmargin != null">
+        #{leftmargin,jdbcType=DECIMAL},
+      </if>
+      <if test="rightmargin != null">
+        #{rightmargin,jdbcType=DECIMAL},
+      </if>
+      <if test="rowspace != null">
+        #{rowspace,jdbcType=DECIMAL},
+      </if>
+      <if test="lineformat != null">
+        #{lineformat,jdbcType=VARCHAR},
+      </if>
+      <if test="dateformat != null">
+        #{dateformat,jdbcType=VARCHAR},
+      </if>
+      <if test="timeformat != null">
+        #{timeformat,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="hotline != null">
+        #{hotline,jdbcType=VARCHAR},
+      </if>
+      <if test="alignment != null">
+        #{alignment,jdbcType=DECIMAL},
+      </if>
+      <if test="cutway != null">
+        #{cutway,jdbcType=DECIMAL},
+      </if>
+      <if test="lineformatAgain != null">
+        #{lineformatAgain,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.TICK_BASIC">
+    update TICK_BASIC
+    <set>
+      <if test="paperwidth != null">
+        PAPERWIDTH = #{paperwidth,jdbcType=DECIMAL},
+      </if>
+      <if test="topmargin != null">
+        TOPMARGIN = #{topmargin,jdbcType=DECIMAL},
+      </if>
+      <if test="bottommargin != null">
+        BOTTOMMARGIN = #{bottommargin,jdbcType=DECIMAL},
+      </if>
+      <if test="leftmargin != null">
+        LEFTMARGIN = #{leftmargin,jdbcType=DECIMAL},
+      </if>
+      <if test="rightmargin != null">
+        RIGHTMARGIN = #{rightmargin,jdbcType=DECIMAL},
+      </if>
+      <if test="rowspace != null">
+        ROWSPACE = #{rowspace,jdbcType=DECIMAL},
+      </if>
+      <if test="lineformat != null">
+        LINEFORMAT = #{lineformat,jdbcType=VARCHAR},
+      </if>
+      <if test="dateformat != null">
+        DATEFORMAT = #{dateformat,jdbcType=VARCHAR},
+      </if>
+      <if test="timeformat != null">
+        TIMEFORMAT = #{timeformat,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null">
+        WEBSITE = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="hotline != null">
+        HOTLINE = #{hotline,jdbcType=VARCHAR},
+      </if>
+      <if test="alignment != null">
+        ALIGNMENT = #{alignment,jdbcType=DECIMAL},
+      </if>
+      <if test="cutway != null">
+        CUTWAY = #{cutway,jdbcType=DECIMAL},
+      </if>
+      <if test="lineformatAgain != null">
+        LINEFORMAT_AGAIN = #{lineformatAgain,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+      and TICKTYPE = #{ticktype,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.TICK_BASIC">
+    update TICK_BASIC
+    set PAPERWIDTH = #{paperwidth,jdbcType=DECIMAL},
+      TOPMARGIN = #{topmargin,jdbcType=DECIMAL},
+      BOTTOMMARGIN = #{bottommargin,jdbcType=DECIMAL},
+      LEFTMARGIN = #{leftmargin,jdbcType=DECIMAL},
+      RIGHTMARGIN = #{rightmargin,jdbcType=DECIMAL},
+      ROWSPACE = #{rowspace,jdbcType=DECIMAL},
+      LINEFORMAT = #{lineformat,jdbcType=VARCHAR},
+      DATEFORMAT = #{dateformat,jdbcType=VARCHAR},
+      TIMEFORMAT = #{timeformat,jdbcType=VARCHAR},
+      WEBSITE = #{website,jdbcType=VARCHAR},
+      HOTLINE = #{hotline,jdbcType=VARCHAR},
+      ALIGNMENT = #{alignment,jdbcType=DECIMAL},
+      CUTWAY = #{cutway,jdbcType=DECIMAL},
+      LINEFORMAT_AGAIN = #{lineformatAgain,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+      and TICKTYPE = #{ticktype,jdbcType=DECIMAL}
+  </update>
+ 
+</mapper>

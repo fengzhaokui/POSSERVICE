@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xb.posservice.dao.TICKMapper">
+  <resultMap id="BaseResultMap" type="xb.posservice.dao.vo.TICK">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="TICKTYPE" jdbcType="DECIMAL" property="ticktype" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="DJRMC" jdbcType="VARCHAR" property="djrmc" />
+    <result column="DJSJ" jdbcType="TIMESTAMP" property="djsj" />
+    <result column="DJR" jdbcType="DECIMAL" property="djr" />
+    <result column="QDR" jdbcType="DECIMAL" property="qdr" />
+    <result column="QDRMC" jdbcType="VARCHAR" property="qdrmc" />
+    <result column="QDSJ" jdbcType="TIMESTAMP" property="qdsj" />
+    <result column="ZZR" jdbcType="DECIMAL" property="zzr" />
+    <result column="ZZRMC" jdbcType="VARCHAR" property="zzrmc" />
+    <result column="ZZSJ" jdbcType="TIMESTAMP" property="zzsj" />
+    <result column="MALLID" jdbcType="DECIMAL" property="mallid" />
+    <result column="DYFA" jdbcType="DECIMAL" property="dyfa" />
+    <result column="DYCS" jdbcType="DECIMAL" property="dycs" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, TICKTYPE, STATUS, DJRMC, DJSJ, DJR, QDR, QDRMC, QDSJ, ZZR, ZZRMC, ZZSJ, 
+    MALLID, DYFA, DYCS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TICK
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  
+   <select id="selectBymall"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TICK
+    where MALLID = #{0} and status=1 and DYFA=#{1}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from TICK
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xb.posservice.dao.vo.TICK">
+    insert into TICK (ID, NAME, TICKTYPE, 
+      STATUS, DJRMC, DJSJ, 
+      DJR, QDR, QDRMC, QDSJ, 
+      ZZR, ZZRMC, ZZSJ, 
+      MALLID, DYFA, DYCS)
+    values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{ticktype,jdbcType=DECIMAL}, 
+      #{status,jdbcType=DECIMAL}, #{djrmc,jdbcType=VARCHAR}, #{djsj,jdbcType=TIMESTAMP}, 
+      #{djr,jdbcType=DECIMAL}, #{qdr,jdbcType=DECIMAL}, #{qdrmc,jdbcType=VARCHAR}, #{qdsj,jdbcType=TIMESTAMP}, 
+      #{zzr,jdbcType=DECIMAL}, #{zzrmc,jdbcType=VARCHAR}, #{zzsj,jdbcType=TIMESTAMP}, 
+      #{mallid,jdbcType=DECIMAL}, #{dyfa,jdbcType=DECIMAL}, #{dycs,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="xb.posservice.dao.vo.TICK">
+    insert into TICK
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="ticktype != null">
+        TICKTYPE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="djrmc != null">
+        DJRMC,
+      </if>
+      <if test="djsj != null">
+        DJSJ,
+      </if>
+      <if test="djr != null">
+        DJR,
+      </if>
+      <if test="qdr != null">
+        QDR,
+      </if>
+      <if test="qdrmc != null">
+        QDRMC,
+      </if>
+      <if test="qdsj != null">
+        QDSJ,
+      </if>
+      <if test="zzr != null">
+        ZZR,
+      </if>
+      <if test="zzrmc != null">
+        ZZRMC,
+      </if>
+      <if test="zzsj != null">
+        ZZSJ,
+      </if>
+      <if test="mallid != null">
+        MALLID,
+      </if>
+      <if test="dyfa != null">
+        DYFA,
+      </if>
+      <if test="dycs != null">
+        DYCS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ticktype != null">
+        #{ticktype,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="djrmc != null">
+        #{djrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="djsj != null">
+        #{djsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="djr != null">
+        #{djr,jdbcType=DECIMAL},
+      </if>
+      <if test="qdr != null">
+        #{qdr,jdbcType=DECIMAL},
+      </if>
+      <if test="qdrmc != null">
+        #{qdrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="qdsj != null">
+        #{qdsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zzr != null">
+        #{zzr,jdbcType=DECIMAL},
+      </if>
+      <if test="zzrmc != null">
+        #{zzrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="zzsj != null">
+        #{zzsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mallid != null">
+        #{mallid,jdbcType=DECIMAL},
+      </if>
+      <if test="dyfa != null">
+        #{dyfa,jdbcType=DECIMAL},
+      </if>
+      <if test="dycs != null">
+        #{dycs,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xb.posservice.dao.vo.TICK">
+    update TICK
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ticktype != null">
+        TICKTYPE = #{ticktype,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="djrmc != null">
+        DJRMC = #{djrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="djsj != null">
+        DJSJ = #{djsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="djr != null">
+        DJR = #{djr,jdbcType=DECIMAL},
+      </if>
+      <if test="qdr != null">
+        QDR = #{qdr,jdbcType=DECIMAL},
+      </if>
+      <if test="qdrmc != null">
+        QDRMC = #{qdrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="qdsj != null">
+        QDSJ = #{qdsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zzr != null">
+        ZZR = #{zzr,jdbcType=DECIMAL},
+      </if>
+      <if test="zzrmc != null">
+        ZZRMC = #{zzrmc,jdbcType=VARCHAR},
+      </if>
+      <if test="zzsj != null">
+        ZZSJ = #{zzsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mallid != null">
+        MALLID = #{mallid,jdbcType=DECIMAL},
+      </if>
+      <if test="dyfa != null">
+        DYFA = #{dyfa,jdbcType=DECIMAL},
+      </if>
+      <if test="dycs != null">
+        DYCS = #{dycs,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xb.posservice.dao.vo.TICK">
+    update TICK
+    set NAME = #{name,jdbcType=VARCHAR},
+      TICKTYPE = #{ticktype,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      DJRMC = #{djrmc,jdbcType=VARCHAR},
+      DJSJ = #{djsj,jdbcType=TIMESTAMP},
+      DJR = #{djr,jdbcType=DECIMAL},
+      QDR = #{qdr,jdbcType=DECIMAL},
+      QDRMC = #{qdrmc,jdbcType=VARCHAR},
+      QDSJ = #{qdsj,jdbcType=TIMESTAMP},
+      ZZR = #{zzr,jdbcType=DECIMAL},
+      ZZRMC = #{zzrmc,jdbcType=VARCHAR},
+      ZZSJ = #{zzsj,jdbcType=TIMESTAMP},
+      MALLID = #{mallid,jdbcType=DECIMAL},
+      DYFA = #{dyfa,jdbcType=DECIMAL},
+      DYCS = #{dycs,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+ 
+</mapper>
