@@ -30,7 +30,7 @@ public class RedisHelper {
 		initialShardedPool();
 		shardedJedis = shardedJedisPool.getResource();
 		jedis = jedisPool.getResource();
-
+//jedis.close();
 	}
 
 	/**
@@ -45,6 +45,7 @@ public class RedisHelper {
 		config.setTestOnBorrow(false);
 
 		jedisPool = new JedisPool(config, "127.0.0.1", 6379);
+		//jedisPool.close();
 	}
 
 	/**

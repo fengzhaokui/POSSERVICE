@@ -43,7 +43,14 @@ public class CheckToken extends HandlerInterceptorAdapter {
 			url.append(request.getQueryString());
 		}
 		Gson gson = new Gson();
-		logger.info(request.getRequestURL() + "接口参数：" + gson.toJson(request.getParameterMap()));
+		String boby=getBodyData(request);
+		
+		String str=request.getRequestURL() + "接口参数："+ gson.toJson(request.getParameterMap());
+		if(!boby.isEmpty())
+		{
+			str+="[boby]:"+boby;
+		}
+		logger.info(str);
 
 		return request.getParameter("token");
 
@@ -91,10 +98,11 @@ public class CheckToken extends HandlerInterceptorAdapter {
 		request.setAttribute("startTime", startTime);
 
 		ResultData result = new ResultData();
-		result.setRetcode("00");
+		
 		// 检查用户所传递的 token 是否合法
 		String token = getUserToken(request);
 		if (token == null) {
+			result.setRetcode("-1");
 			result.setRetmsg("错误, Token不可以为空!");
 			SetErrorRespon(response, result);
 			// response.setStatus(500);
@@ -102,6 +110,7 @@ public class CheckToken extends HandlerInterceptorAdapter {
 		} else {
 			TOKEN data = tokenService.selectByPrimaryKey(token);
 			if (data == null) {
+				result.setRetcode("-1");
 				result.setRetmsg("错误, Token不存在!");
 				// response.setStatus(500);
 				SetErrorRespon(response, result);
@@ -125,28 +134,6 @@ public class CheckToken extends HandlerInterceptorAdapter {
 			StringBuilder sb = new StringBuilder(1000);
 			sb.append(url + "接口耗时  : ").append(executeTime).append("ms").append("\n");
 			logger.info(sb.toString());
-//			Gson gson = new Gson();
-//			// 截取响应流
-//			CoyoteOutputStream os =(CoyoteOutputStream)response.getOutputStream();
-//			// 取到流对象对应的Class对象
-//			Class<CoyoteOutputStream> c = CoyoteOutputStream.class;
-//			// 取出流对象中的OutputBuffer对象，该对象记录响应到客户端的内容
-//			Field fs = c.getDeclaredField("ob");
-//			if (fs.getType().toString().endsWith("OutputBuffer")) {
-//				fs.setAccessible(true);// 设置访问ob属性的权限
-//				OutputBuffer ob = (OutputBuffer) fs.get(os);// 取出ob
-//				logger.info("ob"+ob);
-//				Class<OutputBuffer> cc = OutputBuffer.class;
-//				Field ff = cc.getDeclaredField("outputChunk");// 取到OutputBuffer中的输出流
-//				ff.setAccessible(true);
-//				if (ff.getType().toString().endsWith("ByteChunk")) {
-//					ByteChunk bc = (ByteChunk) ff.get(ob);// 取到byte流
-//					String val = new String(bc.getBytes(), "UTF-8");// 最终的值
-//					// System.out.println(val);
-//					logger.info(url+"输出：" + val);
-//				}
-//				//ob.close();
-//			}
 		}
 		super.postHandle(request, response, handler, modelAndView);
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
@@ -20,25 +21,20 @@ public class StartThreadClass implements InitializingBean {
 	public void afterPropertiesSet() throws Exception {
 		
 		System.out.println("线程启动----------------------------");
-		test tt=new test();
-		tt.add();
+		//test.main();
+		//test tt=new test();
+		//tt.add();
+		
 		//startNotify();
 	}
 
 	public ExecutorService fixedThreadPool = Executors.newFixedThreadPool(5);
-
+//	public ExecutorService fixedThreadPool1 = new ThreadPoolExecutor(5,30,1000);
+   
 	public void startNotify() {
 		fixedThreadPool.execute(new Runnable() {
 			public void run() {
-//				while (1 == 1) {
-//					try {
-//						Thread.sleep(6000);
-//						System.out.print("当前时间：" + CommonUtils.getNowDate());
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
-//				}
-				
+
 				List<ResultData> queue = new ArrayList<ResultData>();
 		        int length = 10;
 		        Producer p1 = new Producer(queue,length);

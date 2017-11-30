@@ -44,9 +44,20 @@
       <param-value>true</param-value>
     </init-param>
   </filter>
+  <filter>
+  	<description>
+  	</description>
+  	<display-name>TokenFilter</display-name>
+  	<filter-name>TokenFilter</filter-name>
+  	<filter-class>xb.posservice.util.TokenFilter</filter-class>
+  </filter>
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>TokenFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
   </filter-mapping>
   <servlet>
     <servlet-name>springMVC</servlet-name>

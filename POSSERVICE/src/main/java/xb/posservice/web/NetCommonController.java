@@ -132,11 +132,21 @@ public class NetCommonController {
 			//TickCommon tc=new TickCommon();
 			SKT skt = sktService.selectByPrimaryKey(posno);
 			result.setData(tc.GetTickList(posno));
+			if(result.getData()!=null)
+			{
+				result.setRetcode("00");
+				result.setRetmsg("成功");
+			}
+			else
+			{
+				result.setRetcode("01");
+				result.setRetmsg("失败");
+			}
 			
 			return result;
 		}
 
-//	// 获取小票
+//	// 获取小票g
 //	// @AuthChecker
 //	@RequestMapping(value = "/gettick", method = RequestMethod.POST, produces = "application/json")
 //	@ResponseBody

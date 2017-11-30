@@ -25,11 +25,9 @@ import xb.posservice.service.ApiService;
 
 import xb.posservice.dao.vo.MemberBaseInfo;
 import xb.posservice.dao.vo.ResultData;
-import xb.posservice.dao.vo.TOKEN;
 import xb.posservice.service.FengService;
 import xb.posservice.service.TokenService;
 import xb.posservice.util.AuthChecker;
-import xb.posservice.util.CheckToken;
 import xb.posservice.util.JsonUtils;
 //import com.symboltech.msxfInterface.vo.BaseResultInfo;
 
