@@ -31,14 +31,14 @@ public class SKFSPayController {
 	@Autowired
 	@Qualifier("SaleBankdetailServiceImpl")
 	private SaleBankdetailService sbService;
-
+	Gson gson = new Gson();
 	// 保存银行卡交易信息；
 	// @AuthChecker
 	@RequestMapping(value = "/savebankinfo", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public ResultData SaveBankInfo(@RequestParam String posno, @RequestParam String billid,
-			@RequestParam String transtype, @RequestParam String cardno, @RequestParam String batchno,
-			@RequestParam String refno, @RequestParam String tradeno, @RequestParam String amount,
+			@RequestParam String transtype, @RequestParam(value = "cardno", required = false)String cardno,@RequestParam String batchno,
+			@RequestParam String refno, @RequestParam(value = "tradeno", required = false) String tradeno, @RequestParam String amount,
 			@RequestParam String decmoney, @RequestParam String skfsid) {
 		// public ResultData SaveBankInfo(@RequestParam String posno,
 		// @RequestParam String billid
@@ -81,6 +81,7 @@ public class SKFSPayController {
 		} else {
 			result.setRetmsg("保存失败");
 		}
+		log.info("银行卡返回："+gson.toJson(result));
 		return result;
 	}
 
@@ -149,8 +150,10 @@ public class SKFSPayController {
 
 		}
 		result.setData(state);
-
+		log.info("银行卡列表返回："+gson.toJson(result));
 		return result;
 
 	}
+	
+	
 }

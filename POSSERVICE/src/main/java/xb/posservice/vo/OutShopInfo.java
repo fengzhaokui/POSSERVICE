@@ -14,5 +14,7 @@ public class OutShopInfo {
 	    /// 店铺信息
 	    /// </summary>
 	    public String name ;
+	    
+	    public String yttype ;
 	
 }

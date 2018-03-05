@@ -20,7 +20,6 @@ import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 
-import net.sf.json.util.JSONUtils;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;

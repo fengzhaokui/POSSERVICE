@@ -24,32 +24,18 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.gson.Gson;
 
 import net.sf.json.JSONObject;
-import xb.posservice.vo.*;
-import xb.posservice.dao.vo.MEM_COUPON_ACCOUNT;
-import xb.posservice.dao.vo.MEM_COUPON_DEF;
 import xb.posservice.dao.vo.ResultData;
 import xb.posservice.service.ApiService;
 import xb.posservice.service.MemBaseInfoService;
-import xb.posservice.service.MemCouponAccountService;
-import xb.posservice.service.MemCouponDefService;
 import xb.posservice.util.CommonUtils;
-import xb.posservice.util.JsonUtils;
+
+
 
 @Controller
 public class ConfirmBillController {
 	Logger logger = Logger.getLogger(ConfirmBillController.class);
 
-	@Autowired
-	@Qualifier("MemBaseInfoServiceImpl")
-	private MemBaseInfoService memService;
 
-	@Autowired
-	@Qualifier("MemCouponDefServiceImpl")
-	private MemCouponDefService coupondefService;
-
-	@Autowired
-	@Qualifier("MemCouponAccountServiceImpl")
-	private MemCouponAccountService couponService;
 	
 	@Autowired
 	@Qualifier("ApiServiceImpl")	

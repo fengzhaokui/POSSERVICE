@@ -28,6 +28,8 @@ public class MALLDEF {
     private String mdphone;
 
     private Integer bjAutoreg;
+    
+    private Integer yttype;
 
     public Integer getId() {
         return id;
@@ -132,4 +134,12 @@ public class MALLDEF {
     public void setBjAutoreg(Integer bjAutoreg) {
         this.bjAutoreg = bjAutoreg;
     }
+
+	public Integer getYttype() {
+		return yttype;
+	}
+
+	public void setYttype(Integer yttype) {
+		this.yttype = yttype;
+	}
 }

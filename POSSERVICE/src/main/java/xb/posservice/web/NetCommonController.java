@@ -122,11 +122,26 @@ public class NetCommonController {
 			
 		}
 	}
+	
+	// 保存 佳惠储值卡交易记录
+		// @AuthChecker
+		@RequestMapping(value = "/savejlcarddclog", method = RequestMethod.POST, produces = "application/json")
+		@ResponseBody
+		public String SaveJLCardDCLog(@RequestParam(value="token", required=false) String token) throws Exception {
+
+			Map<String, String> paramMap = new HashMap<String, String>();
+
+			paramMap.put("token", token);
+			logger.info(JsonUtils.hashMap2Json(paramMap));
+			String apiresult = apiService.sendRequest("SaveJLCardDCLog", paramMap);
+			return apiresult;
+		}
 
 	// 获取小票
 		// @AuthChecker
 		@RequestMapping(value = "/gettick", method = RequestMethod.POST, produces = "application/json")
 		@ResponseBody
+		
 		public ResultData GetTick(@RequestParam(value="token", required=false) String token,@RequestParam(value="posno", required=false) String posno) throws Exception {
 			ResultData result=new ResultData();
 			//TickCommon tc=new TickCommon();

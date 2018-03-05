@@ -37,22 +37,47 @@ public class CheckToken extends HandlerInterceptorAdapter {
 
 	// 打印输入日记 获取token；
 	private String getUserToken(HttpServletRequest request) {
-		StringBuffer url = request.getRequestURL();
-		if (request.getQueryString() != null) {
-			url.append("?");
-			url.append(request.getQueryString());
-		}
+//		StringBuffer url = request.getRequestURL();
+//		if (request.getQueryString() != null) {
+//			url.append("?");
+//			url.append(request.getQueryString());
+//		}
 		Gson gson = new Gson();
+		String token=request.getParameter("token");
 		String boby=getBodyData(request);
-		
-		String str=request.getRequestURL() + "接口参数："+ gson.toJson(request.getParameterMap());
+		String str="【请求 IP】"+request.getRemoteAddr()+"||"+request.getRequestURL() + "接口参数："+ gson.toJson(request.getParameterMap());
 		if(!boby.isEmpty())
 		{
 			str+="[boby]:"+boby;
 		}
 		logger.info(str);
+		
+		
+		if(token==null||token.length()==0)
+		{
+			if(boby.contains("token"))
+			{
+				//token=7c6000c6265c4e3b9faacde125aa8849004
+				
+				String[] arr=boby.split("&"); //各个参数放到数组里
+			   
+			   for(int i=0;i < arr.length;i++){
+			       int num=arr[i].indexOf("=");
+			        if(num>0){
+			            String name=arr[i].substring(0,num);
+			            String value=arr[i].substring(num+1);
+			             if(name.equals("token"))
+			             {
+			            	 token=value;
+			            	 continue;
+			             }
+			        }
+			   }
+			}
+		}
+		
 
-		return request.getParameter("token");
+		return token;
 
 	}
 
@@ -101,7 +126,7 @@ public class CheckToken extends HandlerInterceptorAdapter {
 		
 		// 检查用户所传递的 token 是否合法
 		String token = getUserToken(request);
-		if (token == null) {
+		if (token == null ) {
 			result.setRetcode("-1");
 			result.setRetmsg("错误, Token不可以为空!");
 			SetErrorRespon(response, result);
@@ -130,11 +155,11 @@ public class CheckToken extends HandlerInterceptorAdapter {
 		long startTime = (Long) request.getAttribute("startTime");
 		long endTime = System.currentTimeMillis();
 		long executeTime = endTime - startTime;
-		if (handler instanceof HandlerMethod) {
+		//if (handler instanceof HandlerMethod) {
 			StringBuilder sb = new StringBuilder(1000);
 			sb.append(url + "接口耗时  : ").append(executeTime).append("ms").append("\n");
 			logger.info(sb.toString());
-		}
+		//}
 		super.postHandle(request, response, handler, modelAndView);
 	}
 

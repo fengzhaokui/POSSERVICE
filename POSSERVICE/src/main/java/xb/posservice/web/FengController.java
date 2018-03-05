@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import xb.posservice.service.ApiService;
 //import xb.posservice.util.PropertyUtils;
@@ -30,8 +31,8 @@ import xb.posservice.service.TokenService;
 import xb.posservice.util.AuthChecker;
 import xb.posservice.util.JsonUtils;
 //import com.symboltech.msxfInterface.vo.BaseResultInfo;
-
-@Controller
+@RestController
+//@Controller
 // @RequestMapping("/gethyxx")
 public class FengController {
 	Logger logger = Logger.getLogger(FengController.class);
