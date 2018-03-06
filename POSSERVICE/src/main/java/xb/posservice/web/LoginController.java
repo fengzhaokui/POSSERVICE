@@ -160,6 +160,7 @@ public class LoginController {
 			minfo.id = mall.getId().toString();
 			minfo.code = mall.getCode();
 			minfo.name = mall.getName();
+			minfo.yeepaysubno=mall.getYeepaysubno();
 			minfo.yttype=mall.getYttype().toString();
 		}
 		oinfo.mallmsg = minfo;

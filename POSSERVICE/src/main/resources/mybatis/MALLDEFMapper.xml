@@ -14,12 +14,13 @@
     <result column="MDID_PARK" jdbcType="VARCHAR" property="mdidPark" />
     <result column="MDADDRESS" jdbcType="VARCHAR" property="mdaddress" />
     <result column="MDPHONE" jdbcType="VARCHAR" property="mdphone" />
+    <result column="YEEPAYSUBNO" jdbcType="VARCHAR" property="yeepaysubno" />
     <result column="BJ_AUTOREG" jdbcType="DECIMAL" property="bjAutoreg" />
      <result column="YTTYPE" jdbcType="DECIMAL" property="yttype" />
   </resultMap>
   <sql id="Base_Column_List">
     ID, CODE, NAME, LASTMODIFIERID, LASTMODIFIERNAME, LASTMODIFYDATE, XTCODE, TM, OLD_MDID, 
-    MDID_PARK, MDADDRESS, MDPHONE, BJ_AUTOREG,YTTYPE
+    MDID_PARK, MDADDRESS, MDPHONE, BJ_AUTOREG,YTTYPE,YEEPAYSUBNO
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

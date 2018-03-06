@@ -46,6 +46,7 @@ public class MEM_BASEINFO {
     private Integer bjKtxj;
 
     private Date createtime;
+    private String pureopenid;
 
     public Long getHyid() {
         return hyid;
@@ -222,4 +223,12 @@ public class MEM_BASEINFO {
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
     }
+
+	public String getPureopenid() {
+		return pureopenid;
+	}
+
+	public void setPureopenid(String pureopenid) {
+		this.pureopenid = pureopenid;
+	}
 }

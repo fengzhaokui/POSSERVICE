@@ -36,7 +36,7 @@
 		<property name="apiErrorCount" value="${api_errorcount}" />
 		<property name="apiCallTime" value="${api_calltime}" />
 		<property name="posapiAddress" value="http://192.168.28.239:81/XBapi/" />
-		<property name="msapiAddress" value="http://192.168.28.239:8080/msxfInterface/" />
+		<property name="msapiAddress" value="http://192.168.28.239:8080/msxfInterface2/" />
 	</bean>
 
 

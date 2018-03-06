@@ -26,7 +26,7 @@ public class MALLDEF {
     private String mdaddress;
 
     private String mdphone;
-
+    private String yeepaysubno;
     private Integer bjAutoreg;
     
     private Integer yttype;
@@ -141,5 +141,13 @@ public class MALLDEF {
 
 	public void setYttype(Integer yttype) {
 		this.yttype = yttype;
+	}
+
+	public String getYeepaysubno() {
+		return yeepaysubno;
+	}
+
+	public void setYeepaysubno(String yeepaysubno) {
+		this.yeepaysubno = yeepaysubno;
 	}
 }

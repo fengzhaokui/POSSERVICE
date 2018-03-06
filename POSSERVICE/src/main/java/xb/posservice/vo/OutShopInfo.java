@@ -16,5 +16,5 @@ public class OutShopInfo {
 	    public String name ;
 	    
 	    public String yttype ;
-	
+	    public String yeepaysubno ;
 }
